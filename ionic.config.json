@@ -1,0 +1,7 @@
+{
+  "name": "CharityApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
