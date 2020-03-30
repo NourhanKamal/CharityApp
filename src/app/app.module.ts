@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { IonApp } from '@ionic/angular';
+import { Injectable, NgZone } from '@angular/core';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AngularFireDatabaseModule  } from 'angularfire2/database' ;
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,9 +15,11 @@ import { AngularFireAuthModule } from 'angularfire2/auth'
 import { HttpClientModule } from '@angular/common/http';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import {  GooglePlus } from '@ionic-native/google-plus/ngx'
-import { Geolocation } from '@ionic-native/geolocation'
 import { IonicStorageModule } from '@ionic/storage'
-import { LocationTrackerProvider } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+import {NativeStorage} from '@ionic-native/native-storage/ngx'
+
+import { Geolocation,  } from '@ionic-native/geolocation/ngx'
 
 
 
@@ -40,7 +43,11 @@ const fireConfig = {
     AngularFireModule.initializeApp(fireConfig), 
     AngularFireAuthModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot() , 
+    AngularFireDatabaseModule
+    
+    
+    
     
     
     ],
@@ -49,8 +56,11 @@ const fireConfig = {
     SplashScreen,
     { provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy,  } ,
-      Facebook, GooglePlus, Geolocation ,LocationTrackerProvider
-      
+      Facebook  , 
+      Geolocation, 
+      GooglePlus, 
+      BackgroundGeolocation ,
+      Injectable ,NativeStorage
   ],
   bootstrap: [AppComponent]
 })

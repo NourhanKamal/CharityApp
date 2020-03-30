@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
-
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { auth } from 'firebase/app';
+import * as firebase from 'firebase/app';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { AppService } from '../app.service'
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Platform } from '@ionic/angular'
+import { templateJitUrl } from '@angular/compiler';
+import { LoadingController } from '@ionic/angular';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -7,6 +17,21 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(public afAuth: AngularFireAuth, 
+    private router: Router,
+    private fb : Facebook,
+    private service: AppService,
+    private google: GooglePlus , 
+    private platform: Platform,
+    private nativeStorage: NativeStorage,
+    public loadingController: LoadingController) {}
+
+
+
+    
+    logOut(){  this.afAuth.auth.signOut()
+      .then(()=> this.router.navigate(['/register']))
+  
+    }
 
 }

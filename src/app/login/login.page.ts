@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
+import * as firebase from 'firebase/app';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { AppService } from '../app.service'
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Platform } from '@ionic/angular'
+import { templateJitUrl } from '@angular/compiler';
+import { LoadingController } from '@ionic/angular';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +18,59 @@ import { auth } from 'firebase/app';
 })
 export class LoginPage implements OnInit {
 
-  username: string = "";
+	email: string = "";
   password: string = "";
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) { }
+	FB_APP_ID: number = 1032124980494760;
+
+  constructor(public afAuth: AngularFireAuth,
+     private router: Router, 
+     private fb : Facebook,
+     private service: AppService,
+     private google: GooglePlus , 
+     private platform: Platform,
+     private nativeStorage: NativeStorage,
+     public loadingController: LoadingController) { }
 
   ngOnInit() {
   }
   async login(){ 
-    const { username, password } = this;
+    const { email, password } = this;
     try { 
-      const res = await this.afAuth.auth.signInWithEmailAndPassword(username, password).then((res)=> {this.router.navigate(['/tabs/tab2']);
+	  const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then((res)=> 
+	  {this.router.navigate(['/tabs']);
       console.log(res);})
       } 
         catch(error) { console.log(error)}
 
   }
+  async doFbLogin(){
+	try{
+		const  result = await this.fb.login(['email']);
+  
+		const fbCredential = firebase.auth.FacebookAuthProvider.credential(result.authResponse.accessToken);
+  
+		await firebase.auth().signInWithCredential(fbCredential);
+  
+	  }catch(err){
+		console.error(err);
+	  }
+  
+	}
+  
+
+
+
+
+ loginWithGoogle(){
+  this.google.login({})
+  .then(res => {
+    console.log(res);
+    
+  }).then(() => this.router.navigate(['/tabs']))
+  .catch(err => {
+    console.error(err);
+  });
+}
 
     } 

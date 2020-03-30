@@ -1,18 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+  <ion-toolbar>      
+    <ion-title>Login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> 
+<ion-content padding class="enterPage" style="background-image: linear-gradient(45deg, #1488CC, #2B32B2);">
+  <div class="card px-4 py-2 box-shadow-2">
+          <div class="card-header text-center">
+              <!-- <img src="assets/app-assets/img/logos/logo-color-big.png" alt="company-logo" class="mb-3" width="80"> -->
+          </div>
+          <ion-list class="card-body">
+            <ion-item class="form-group">
+                <ion-label color="primary" floating>Email : </ion-label>
+                <ion-input type="email"  [(ngModel)]="username"></ion-input>
+            </ion-item>
+            <ion-item class="form-group">
+                <ion-label color="primary" floating>Password : </ion-label>
+                <ion-input type="password"  [(ngModel)]="password"></ion-input>
+            </ion-item>
+      
 
-<ion-content>
-  <ion-item>
-    <ion-label position="floating">Username</ion-label>
-    <ion-input type="text" [(ngModel)]="username"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Password</ion-label>
-    <ion-input type="password" [(ngModel)]="password"></ion-input>
-  </ion-item>   
-  <ion-button size="default" shape="round"  color="primary" expand="block" (click)="login()">LogIn</ion-button>
+            <ion-item class="form-group" style="text-align: center">
+              <ion-button size="default" shape="round"  color="primary" expand="block" (click)="login()">Login</ion-button>  
+              
+            </ion-item>
+          </ion-list>  
+          &nbsp;           &nbsp;
 
-</ion-content>
+          <ion-button size="default" shape="round"  color="primary" expand="block" (click)="doFbLogin()" >Login with Facebook</ion-button>  
+          <ion-button size="default" shape="round"  color="danger" expand="block" (click)="loginWithGoogle()">Login with Google</ion-button>  
+<hr><hr>
+
+          <a style="padding-left: 20px;" [routerLink]="['/register']">register</a>
+         </div>
+         
+        </ion-content>

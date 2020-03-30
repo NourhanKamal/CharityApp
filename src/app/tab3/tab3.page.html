@@ -1,29 +1,48 @@
+<!--
+  Generated template for the LocationPage page.
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      GPS Tracking
-    </ion-title>
-  </ion-navbar>
+
+  <ion-toolbar>
+      <button ion-button menuToggle  style="float: right">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>location</ion-title>
+  </ion-toolbar>
+
 </ion-header>
- 
-<ion-content padding>
- 
-  <button ion-button full icon-left (click)="startTracking()" *ngIf="!isTracking">
-      <ion-icon name="locate"></ion-icon>
-      Start Tracking
-    </button>
-  <button ion-button full color="danger" icon-left (click)="stopTracking()" *ngIf="isTracking">
-      <ion-icon name="hand"></ion-icon>
-      Stop Tracking
-  </button>
- 
-  <div #map id="map"></div>
- 
-  <ion-list>
-    <ion-list-header>Previous Tracks</ion-list-header>
-    <ion-item *ngFor="let route of previousTracks">
-      {{ route.finished | date }}, {{ route.path.length }} Waypoints
-      <button ion-button clear item-end (click)="showHistoryRoute(route.path)">View Route</button>
-    </ion-item>
-  </ion-list>
+
+
+<ion-content padding style="background-image: linear-gradient(45deg, #1488CC, #2B32B2);">
+    <div class="card px-4 py-2 box-shadow-2">
+        <div class="card-header text-center">
+            <h4 class="text-uppercase text-bold-400 grey darken-1">Form Page</h4>
+        </div>
+        <ion-list class="card-body">
+            <ion-item class="form-group">
+                <ion-label color="primary">desiredAccuracy</ion-label>
+                <ion-input placeholder="Text Input" [(ngModel)]="desiredAccuracy"></ion-input>
+              </ion-item>
+
+              <ion-item class="form-group">
+                <ion-label color="primary" fixed>stationaryRadius</ion-label>
+                <ion-input type="tel" placeholder="Tel Input" [(ngModel)]="stationaryRadius"></ion-input>
+              </ion-item>
+              <ion-item class="form-group">
+                  <ion-label color="primary" fixed>distanceFilter</ion-label>
+                  <ion-input type="tel" placeholder="Tel Input" [(ngModel)]="distanceFilter"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <h3>Current Latitude: {{lat}}</h3>
+                    <h3>Current Longitude: {{lng}}</h3>
+                    <button ion-button full primary (click)="start()">Start Tracking</button>
+                    <button ion-button full color="danger" (click)="stop()">Stop Tracking</button>
+                </ion-item>
+        </ion-list>
+
+  </div>
+
+
 </ion-content>

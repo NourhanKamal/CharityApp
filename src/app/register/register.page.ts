@@ -8,7 +8,10 @@ import { AppService } from '../app.service'
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular'
 import { templateJitUrl } from '@angular/compiler';
- 
+import { LoadingController } from '@ionic/angular';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
+
 
 
 
@@ -19,10 +22,13 @@ import { templateJitUrl } from '@angular/compiler';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+	FB_APP_ID: number = 1032124980494760;
 
-  username: string = '';
-  password: string = '';
-  cpassword: string = '';
+	email: string = ''; 
+    password: string = '';
+//   username: string = '';
+//   password: string = '';
+//   cpassword: string = '';
 
   constructor(public afAuth: AngularFireAuth, 
     private router: Router,
@@ -30,7 +36,9 @@ export class RegisterPage implements OnInit {
     private service: AppService,
     private google: GooglePlus , 
     private platform: Platform,
-    
+    private nativeStorage: NativeStorage,
+    public loadingController: LoadingController
+
     
    
     ) { }
@@ -38,41 +46,53 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  async register(){
-
-    const { username, password, cpassword} = this;
-    if (password !== cpassword ) { 
-      alert ("Passwords don't match!");
-    }
-     try{    const res = await this.afAuth.auth.createUserWithEmailAndPassword(username , password).then((res)=> {this.router.navigate(['/tabs/tab2']);
-      console.log(res);})
-      } 
-        catch(error) { console.log(error)}
-
-  }
-
+  async register() {
+	try {
+		var res = await this.afAuth.auth.createUserWithEmailAndPassword( this.email, this.password
+		);
+		if (res) {
+		  console.log("Successfully registered!");
+		  this.router.navigate(['/login']);
+		}
   
-  loginWithFacebook(){
-    this.fb.login(['public_profile', 'user_friends', 'email'])
-    .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
-    .catch(e => console.log('Error logging into Facebook', e));
+	  } catch (err) {
+		console.error(err);
+	  }}	
+
+
+//   async doFbLogin(){
+// 	try{
+// 		const  result = await this.fb.login(['email']);
+  
+// 		const fbCredential = firebase.auth.FacebookAuthProvider.credential(result.authResponse.accessToken);
+  
+// 		await firebase.auth().signInWithCredential(fbCredential);
+  
+// 	  }catch(err){
+// 		console.error(err);
+// 	  }
+  
+// 	}
+	
+
+	
+	
+  
+  
+
+
+
+
+//  loginWithGoogle(){
+//   this.google.login({})
+//   .then(res => {
+//     console.log(res);
     
- }
- logoutOfFacebook(){
-   this.afAuth.auth.signOut()
+//   }).then(() => this.router.navigate(['/tabs']))
+//   .catch(err => {
+//     console.error(err);
+//   });
+// }
+// }
 
- }
-
- loginWithGoogle(){
-  this.google.login({})
-  .then(res => {
-    console.log(res);
-    
-  })
-  .catch(err => {
-    console.error(err);
-  });
-}
-
-
-}
+	}
