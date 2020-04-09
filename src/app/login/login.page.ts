@@ -10,6 +10,9 @@ import { Platform } from '@ionic/angular'
 import { templateJitUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Observable } from 'rxjs/Observable'
+import { AuthenticationService } from "../services/services";
+
 
 @Component({
   selector: 'app-login',
@@ -18,10 +21,11 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 })
 export class LoginPage implements OnInit {
 
-	email: string = "";
-  password: string = "";
+  user: Observable<firebase.User>;
 
-	FB_APP_ID: number = 1032124980494760;
+	
+
+
 
   constructor(public afAuth: AngularFireAuth,
      private router: Router, 
@@ -30,47 +34,71 @@ export class LoginPage implements OnInit {
      private google: GooglePlus , 
      private platform: Platform,
      private nativeStorage: NativeStorage,
-     public loadingController: LoadingController) { }
+     public loadingController: LoadingController,
+     public authService: AuthenticationService) {
+       this.user = this.afAuth.authState;
+      }
 
   ngOnInit() {
   }
-  async login(){ 
-    const { email, password } = this;
-    try { 
-	  const res = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then((res)=> 
-	  {this.router.navigate(['/tabs']);
-      console.log(res);})
-      } 
-        catch(error) { console.log(error)}
+  logIn(email, password) {
+    this.authService.SignIn(email.value, password.value)
+      .then((res) => {
+        if(this.authService.isEmailVerified) {
+          this.router.navigate(['dashboard']);          
+        } else {
+          window.alert('Email is not verified')
+          return false;
+        }
+      }).catch((error) => {
+        window.alert(error.message)
+      })}
 
-  }
-  async doFbLogin(){
-	try{
-		const  result = await this.fb.login(['email']);
-  
-		const fbCredential = firebase.auth.FacebookAuthProvider.credential(result.authResponse.accessToken);
-  
-		await firebase.auth().signInWithCredential(fbCredential);
-  
-	  }catch(err){
-		console.error(err);
-	  }
+  loginWithFacebook(){
+
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+    .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+    .then(()=> this.router.navigate(['/tabs']))
+    .catch(e => console.log('Error logging into Facebook', e));
   
 	}
   
 
+  loginWithGoogle(){
+   if(this.platform.is('cordova')) {
+     this.nativeGoogleLogin();
+   } else { 
+     this.webGoogleLogin();
+   }
 
-
-
- loginWithGoogle(){
-  this.google.login({})
-  .then(res => {
-    console.log(res);
-    
-  }).then(() => this.router.navigate(['/tabs']))
-  .catch(err => {
-    console.error(err);
-  });
+ 
 }
+ async nativeGoogleLogin() {
+   try { 
+     const gplusUser = await this.google.login({
+       'webClientId': '694372527034-ragclp8c4psgdnehprmgaukpueuo27j1.apps.googleusercontent.com',
+       'offline': true, 
+       'scopes': 'profile email'
+    
+    })
+    return await this.afAuth.auth.signInWithCredential(
+       firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
+    ).then(()=> this.router.navigate(['/tabs']))
 
-    } 
+   }catch (err) {
+     console.log(err)
+   }
+   }
+
+   async webGoogleLogin() {
+     try { 
+       const provider = new firebase.auth.GoogleAuthProvider();
+       const credential = await this.afAuth.auth.signInWithPopup(provider);
+     }catch (err) {
+       console.log(err)
+     }
+   }
+
+ }
+
+    

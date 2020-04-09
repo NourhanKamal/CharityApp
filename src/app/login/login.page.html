@@ -1,36 +1,38 @@
 <ion-header>
-  <ion-toolbar>      
-    <ion-title>Login</ion-title>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Log In</ion-title>
   </ion-toolbar>
-</ion-header> 
-<ion-content padding class="enterPage" style="background-image: linear-gradient(45deg, #1488CC, #2B32B2);">
-  <div class="card px-4 py-2 box-shadow-2">
-          <div class="card-header text-center">
-              <!-- <img src="assets/app-assets/img/logos/logo-color-big.png" alt="company-logo" class="mb-3" width="80"> -->
-          </div>
-          <ion-list class="card-body">
-            <ion-item class="form-group">
-                <ion-label color="primary" floating>Email : </ion-label>
-                <ion-input type="email"  [(ngModel)]="username"></ion-input>
-            </ion-item>
-            <ion-item class="form-group">
-                <ion-label color="primary" floating>Password : </ion-label>
-                <ion-input type="password"  [(ngModel)]="password"></ion-input>
-            </ion-item>
-      
+</ion-header>
 
-            <ion-item class="form-group" style="text-align: center">
-              <ion-button size="default" shape="round"  color="primary" expand="block" (click)="login()">Login</ion-button>  
-              
-            </ion-item>
-          </ion-list>  
-          &nbsp;           &nbsp;
+<ion-content>
+  <form>
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" #email required></ion-input>
+    </ion-item> 
 
-          <ion-button size="default" shape="round"  color="primary" expand="block" (click)="doFbLogin()" >Login with Facebook</ion-button>  
-          <ion-button size="default" shape="round"  color="danger" expand="block" (click)="loginWithGoogle()">Login with Google</ion-button>  
-<hr><hr>
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" #password required></ion-input>
+    </ion-item>
 
-          <a style="padding-left: 20px;" [routerLink]="['/register']">register</a>
-         </div>
-         
-        </ion-content>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" (click)="logIn(email, password)" expand="block">Login</ion-button> 
+        <hr><hr><hr>
+
+        <ion-button size="default" shape="round"  color="primary" expand="block" (click)="loginWithFacebook()" >Login with Facebook</ion-button>  
+        <ion-button size="default" shape="round"  color="danger" expand="block" (click)="loginWithGoogle()">Login with Google</ion-button>
+        <hr><hr>
+        <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
+
+
+        <!-- <ion-button size="default" shape="round"  color="primary" expand="block" (click)="loginWithFacebook()" >Login with Facebook</ion-button>  
+          <ion-button size="default" shape="round"  color="danger" expand="block" (click)="loginWithGoogle()">Login with Google</ion-button> -->

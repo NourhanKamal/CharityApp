@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AngularFireDatabaseModule  } from 'angularfire2/database' ;
-
+import {AboutPage} from './about/about.page'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
@@ -18,9 +18,11 @@ import {  GooglePlus } from '@ionic-native/google-plus/ngx'
 import { IonicStorageModule } from '@ionic/storage'
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
 import {NativeStorage} from '@ionic-native/native-storage/ngx'
-
-import { Geolocation,  } from '@ionic-native/geolocation/ngx'
-
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Geolocation,  } from '@ionic-native/geolocation/ngx';
+import { InfoService } from './services/info.service'
+import { AngularFirestoreModule } from 'angularfire2/firestore'
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 
 const fireConfig = {
@@ -40,16 +42,12 @@ const fireConfig = {
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
-    AngularFireModule.initializeApp(fireConfig), 
+    AngularFireModule.initializeApp(fireConfig, 'angularfs'), 
     AngularFireAuthModule,
     HttpClientModule,
     IonicStorageModule.forRoot() , 
-    AngularFireDatabaseModule
-    
-    
-    
-    
-    
+    AngularFireDatabaseModule, 
+    AngularFirestoreModule
     ],
   providers: [
     StatusBar,
@@ -60,8 +58,14 @@ const fireConfig = {
       Geolocation, 
       GooglePlus, 
       BackgroundGeolocation ,
-      Injectable ,NativeStorage
+      Injectable ,
+      NativeStorage,
+      AngularFirestore,
+      InfoService,
+      AboutPage
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
+
 })
 export class AppModule {}
