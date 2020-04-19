@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import * as firebase from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { AppService } from '../app.service'
+import { AppService } from '../../app.service'
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular'
 import { templateJitUrl } from '@angular/compiler';

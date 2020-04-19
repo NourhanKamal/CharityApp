@@ -2,10 +2,10 @@ import { Component, OnInit,ViewChild , ElementRef, Injectable  } from '@angular/
 import { ActivatedRoute , Router} from '@angular/router';
 import { IonContent ,ModalController,NavParams,NavController,LoadingController} from '@ionic/angular';
 
-import { TravelService } from '../../services/travel.service';
-import { IonicComponentService} from '../../services/ionic-component.service';
+import { TravelService } from '../../../services/travel.service';
+import { IonicComponentService} from '../../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 declare var google;
 
 
