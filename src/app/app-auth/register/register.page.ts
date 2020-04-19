@@ -11,7 +11,7 @@ import { templateJitUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Observable } from 'rxjs/Observable'
-import { AuthenticationService } from "../../../service/services";
+import { AuthenticationService } from "../../../services/services";
 import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
 import { MenuController,NavController } from '@ionic/angular';
 
