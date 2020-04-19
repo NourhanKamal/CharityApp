@@ -22,7 +22,7 @@ import { Geolocation,  } from '@ionic-native/geolocation/ngx';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { charityService } from '../service/charity.service';
+import { charityService } from '../services/charity.service';
 
 const fireConfig = {
   apiKey: "AIzaSyCooEGHuvVmHCXUVyerZ1CqKxL61Ckj7vU",

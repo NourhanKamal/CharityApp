@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 import { NavController,ModalController} from '@ionic/angular';
-import { TravelService } from '../../service/travel.service';
-import { IonicComponentService} from '../../service/ionic-component.service';
+import { TravelService } from '../../services/travel.service';
+import { IonicComponentService} from '../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
-import { charityService } from '../../service/charity.service';
+import { charityService } from '../../services/charity.service';
 
 @Component({
   selector: 'app-info',

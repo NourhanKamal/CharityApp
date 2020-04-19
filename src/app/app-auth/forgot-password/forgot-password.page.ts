@@ -3,8 +3,8 @@ import { ActivatedRoute , Router} from '@angular/router';
 import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
 import { MenuController , NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { IonicComponentService } from '../../../service/ionic-component.service';
-import { UserService } from '../../../service/user.service';
+import { IonicComponentService } from '../../../services/ionic-component.service';
+import { UserService } from '../../../services/user.service';
 
 
 @Component({
