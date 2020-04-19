@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
     path: '',
@@ -25,10 +25,7 @@ const routes: Routes = [
     path: 'ayni',
     loadChildren: () => import('./donation-type/ayni/ayni.module').then( m => m.AyniPageModule)
   },
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
+
   {
     path: 'forgot-password',
     loadChildren: () => import('./app-auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
