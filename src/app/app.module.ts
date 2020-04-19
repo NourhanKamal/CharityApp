@@ -7,7 +7,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AngularFireDatabaseModule  } from 'angularfire2/database' ;
-import {AboutPage} from './about/about.page'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from 'angularfire2';
@@ -20,7 +19,6 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx'
 import {NativeStorage} from '@ionic-native/native-storage/ngx'
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Geolocation,  } from '@ionic-native/geolocation/ngx';
-import { InfoService } from './services/info.service'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -64,8 +62,6 @@ const fireConfig = {
       Injectable ,
       NativeStorage,
       AngularFirestore,
-      InfoService,
-      AboutPage,
       charityService
   ],
   bootstrap: [AppComponent],

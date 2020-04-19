@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import * as firebase from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { AppService } from '../app.service'
+// import { AppService } from '../../app.service'
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular'
 import { templateJitUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Observable } from 'rxjs/Observable'
-import { AuthenticationService } from "../services/services";
+import { AuthenticationService } from "../../../service/services";
 import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
 import { MenuController,NavController } from '@ionic/angular';
 
@@ -37,7 +37,7 @@ export class RegisterPage implements OnInit {
   constructor(public afAuth: AngularFireAuth, 
     private router: Router,
     private fb : Facebook,
-    private service: AppService,
+    // private service: AppService,
     private google: GooglePlus , 
     private platform: Platform,
     private nativeStorage: NativeStorage,

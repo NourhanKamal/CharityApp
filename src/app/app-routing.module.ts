@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'tabs', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   {
     path: '',
@@ -11,19 +11,19 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./app-auth/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./app-auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'maly',
-    loadChildren: () => import('./maly/maly.module').then( m => m.MalyPageModule)
+    loadChildren: () => import('./donation-type/maly/maly.module').then( m => m.MalyPageModule)
   },
   {
     path: 'ayni',
-    loadChildren: () => import('./ayni/ayni.module').then( m => m.AyniPageModule)
+    loadChildren: () => import('./donation-type/ayni/ayni.module').then( m => m.AyniPageModule)
   },
   {
     path: 'home',
@@ -31,18 +31,14 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./app-auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
     path: 'verify-email',
-    loadChildren: () => import('./verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
+    loadChildren: () => import('./app-auth/verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
   },
   
-  
-  {
-    path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
-  },
+
   {
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
