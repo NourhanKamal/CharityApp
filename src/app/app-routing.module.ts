@@ -37,7 +37,7 @@ const routes: Routes = [
   
 
   {
-    path: 'info',
+    path: 'info/:id',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   },
  

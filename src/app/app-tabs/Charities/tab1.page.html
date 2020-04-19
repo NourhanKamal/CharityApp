@@ -6,17 +6,29 @@
     </ion-toolbar>
   </ion-header> 
 
-  <h1 class="name" style="padding-left: 80px;">  قائمة الجمعيات  </h1>
-
-
-  <div class="login-form" *ngFor = "let charity of charities" > 
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/info">
-      
-      {{ charity.title }}: {{charity.description}}  </ion-button> 
-
-     </div>
-
-</ion-content> 
+<ion-content>
+  <div class="title-block">
+    <div class="heading">    قائمة الجمعيات
+    </div>
+  </div>
+  
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Notes</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let charity of charities">
+      <ion-thumbnail slot="start">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ charity.title }}</h2>
+      <p>{{charity.description}}</p>
+      </ion-label>
+      <ion-button fill="outline" slot="end" [routerLink]="'/info/'+charity.id">View</ion-button>
+    </ion-item>
+  </ion-list>
+  
+</ion-content>
 
 
 
