@@ -23,7 +23,8 @@ import { Geolocation,  } from '@ionic-native/geolocation/ngx';
 import { InfoService } from './services/info.service'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { charityService } from '../service/charity.service';
 
 const fireConfig = {
   apiKey: "AIzaSyCooEGHuvVmHCXUVyerZ1CqKxL61Ckj7vU",
@@ -47,7 +48,9 @@ const fireConfig = {
     HttpClientModule,
     IonicStorageModule.forRoot() , 
     AngularFireDatabaseModule, 
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule
     ],
   providers: [
     StatusBar,
@@ -62,7 +65,8 @@ const fireConfig = {
       NativeStorage,
       AngularFirestore,
       InfoService,
-      AboutPage
+      AboutPage,
+      charityService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] 

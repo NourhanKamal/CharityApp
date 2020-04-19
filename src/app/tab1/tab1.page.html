@@ -1,12 +1,65 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-header [translucent]="true">
+<ion-content >
+  <ion-header >
+    <ion-toolbar>
+      <ion-title  color="greengrab"> قائمة الجمعيات</ion-title>
+    </ion-toolbar>
+  </ion-header> 
+
+  <h1 class="name" style="padding-left: 80px;">  قائمة الجمعيات  </h1>
+
+
+  <div class="login-form" *ngFor = "let charity of charities" > 
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/info">
+      
+      {{ charity.title }}: {{charity.description}}  </ion-button> 
+
+     </div>
+
+</ion-content> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div  *ngIf = "charities?.length > 0;else noItems"> 
+<ul *ngFor = "let charity of charities"> 
+  <li> 
+    <strong> {{ charity.title }}:    </strong> {{charity.description}}
+  </li>
+  <a routerLink='/items/{{charity.title}}'>go</a>
+</ul>
+
+</div>
+<ng-template #NoItems> 
+<hr> 
+<h5> There is no items to list </h5>
+
+</ng-template> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-header >
   <ion-toolbar>
     <ion-title>
       قائمة الجمعيات
@@ -14,8 +67,71 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content >
+  <ion-header >
+    <ion-toolbar>
+      <ion-title size="large" style="padding-left: 65px;">    قائمة الجمعيات   </ion-title>
+    </ion-toolbar>
+  </ion-header> 
+
+
+  <div class="login-form">
+ 
+
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/">
+      أجهزة كهربائية
+    </ion-button> <br>
+
+
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/">
+ملابس    </ion-button> <br>
+
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/">
+أثاث</ion-button> <br>
+
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/">
+ كتب    </ion-button> <br>
+
+     <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/">
+   أتبرع بوقتك
+     </ion-button> <br>
+    
+
+     </div> -->
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-header >
+  <ion-toolbar>
+    <ion-title>
+      قائمة الجمعيات
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-header >
     <ion-toolbar>
       <ion-title size="large" style="padding-left: 65px;">    قائمة الجمعيات   </ion-title>
     </ion-toolbar>
@@ -35,4 +151,4 @@
   </ion-list>
 
 </div>
- 
+  -->

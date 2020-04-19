@@ -1,4 +1,104 @@
-<ion-header>
+<ion-header no-border>
+  <ion-toolbar color="">
+    
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+<ion-item lines="none">
+  <ion-label>
+      <ion-text color="greengrab">
+          <h1 class="main-header1">Sign up</h1>
+      </ion-text>
+  </ion-label>
+</ion-item>    
+
+
+<div class="register-form ion-margin">
+          <ion-text color="dark">
+              <h2 text-center class="ion-margin-bottom main-header7">
+                  Create new account.
+              </h2>
+          </ion-text>
+<form [formGroup]="registerForm" novalidate>
+
+  <ion-list lines="none">
+
+
+          <ion-item>
+              <!-- <ion-icon slot="start" color="lightgrey" name="ios-mail-outline"> </ion-icon> -->
+              <ion-input type="email" #email required formControlName="username"  placeholder=" email "></ion-input>
+              <!-- <ion-input type="email" #email required></ion-input> -->
+
+          </ion-item>
+
+          <ion-item>
+              <!-- <ion-icon slot="start"  color="lightgrey" name="ios-key-outline"></ion-icon> -->
+              <ion-input type="password" #password required formControlName="password"  placeholder="Password" ></ion-input>
+              <!-- <ion-input type="password" #password required></ion-input> -->
+
+          </ion-item>
+
+      </ion-list>
+
+
+      <ion-text color="danger">
+          <p *ngIf="!registerForm.controls.username.valid && registerForm.controls.username.touched">
+              <ion-input name="information-circle-outline"></ion-input> Username must be e-mail!
+          </p>             
+      </ion-text>
+      <ion-text color="danger">
+          <p *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.touched">
+              <ion-input name="information-circle-outline"></ion-input> Password field must be at least 6 characters long!
+          </p>              
+      </ion-text>
+
+     <!-- Submit button -->
+      <ion-button mode="ios" color="greengrab" expand="block" class="ion-margin-top"  (click)="signUp(email, password)">
+        Create
+      </ion-button>
+
+      <br>  
+      <ion-button mode="ios" color="primary" expand="block" (click)="loginWithFacebook()" >
+       Sign Up with Facebook
+      </ion-button>
+      <ion-button mode="ios" color="danger" expand="block" (click)="nativeGoogleLogin()" >
+        Sign Up with Google
+       </ion-button>
+
+       <br>
+      <ion-button mode="ios" color="pink" expand="block" fill="outline" class="ion-margin-top" routerLink="/home">
+          Cancel
+      </ion-button>
+      <ion-text color="dark">
+          <h2 text-center class="ion-margin-bottom main-header8">
+              By clicking Sign up you agree to the following Terms and Conditions without reservation
+          </h2>
+      </ion-text>
+</form>
+
+</div>
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -30,5 +130,5 @@
       
     </ion-row>
   </form>
-</ion-content>
+</ion-content> -->
 

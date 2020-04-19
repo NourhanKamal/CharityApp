@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MasrElkheerPageRoutingModule } from './masr-elkheer-routing.module';
+import { InfoPageRoutingModule } from './info-routing.module';
 
-import { MasrElkheerPage } from './masr-elkheer.page';
+import { InfoPage } from './info.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MasrElkheerPageRoutingModule
+    InfoPageRoutingModule
   ],
-  declarations: [MasrElkheerPage]
+  declarations: [InfoPage]
 })
-export class MasrElkheerPageModule {}
+export class InfoPageModule {}
