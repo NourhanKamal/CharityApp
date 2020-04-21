@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'tabs', pathMatch: 'full' },
 
   {
     path: '',
@@ -37,7 +37,7 @@ const routes: Routes = [
   
 
   {
-    path: 'info',
+    path: 'info/:id',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   },
  

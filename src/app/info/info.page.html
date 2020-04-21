@@ -1,18 +1,20 @@
+<ion-content >
+  <ion-header >
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref=""></ion-back-button>
+      </ion-buttons>
 
-<ion-header>
-  <ion-toolbar mode="ios"> 
-      <ion-title  class="main-header4">Category</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content  no-padding >
+      <ion-title  style="padding-left: 80px;">Charity</ion-title>
+    </ion-toolbar>
+  </ion-header> 
 
 
-    <div *ngFor="let charity of charities "> 
+
 
           <h2 > {{charity.title}} </h2>   
           <p > {{charity.description}} </p>     
           
-        </div>
 
 <div class="footer-box"></div>
 

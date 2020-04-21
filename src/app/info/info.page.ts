@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit,OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 import { NavController,ModalController} from '@ionic/angular';
 import { TravelService } from '../../services/travel.service';
 import { IonicComponentService} from '../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
 import { charityService } from '../../services/charity.service';
+import {Item} from '../../services/Item';
+
 
 @Component({
   selector: 'app-info',
@@ -22,6 +24,11 @@ export class InfoPage implements OnInit {
   parentPath: any;
 
   public charities: any[];
+  charity: Item = {
+    id: '',
+    title: '',
+   description:''
+  };
 
   constructor( 
     public travelService: TravelService,
@@ -42,15 +49,28 @@ export class InfoPage implements OnInit {
 
     this.parentPath= this.router.url;
     console.log("....Current route path"+this.parentPath);
-    this.getCategory();
+    this.getItem();
   }
 
+  getItem(){ 
+     
+    const id = this.activatedRoute.snapshot.paramMap.get('id'); 
+    this.charityService.getItem(id).subscribe(res => {
+      console.log("Get charities=" + res) 
+
+      this.charity = res;
+
+
+    });
+  
+  }; 
   getCategory(){
     this.travelService.getCategories().subscribe(res => {
       console.log("Get categories response="+res);
       this.charities = res
     });
   }
+  } ;
 
   // oggleSideMenu() {
   //   this.ionicComponentService.sideMenu(); //Add this method to your button click function
@@ -69,4 +89,4 @@ export class InfoPage implements OnInit {
   // }
   
 
-}
+
