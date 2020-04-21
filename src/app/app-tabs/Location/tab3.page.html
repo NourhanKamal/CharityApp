@@ -1,4 +1,60 @@
-<ion-header >
+<ion-header> 
+  <ion-toolbar color='realgreen'>
+    <ion-title>
+      Map
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content padding>
+<button ion-button full icon-left (click)="startTracking()" *ngIf="!isTracking">
+  <ion-icon name="locate"></ion-icon>
+  Strat Tracking
+</button>
+
+<ion-content padding> -->
+<!--   <button ion-button full icon-left (click)="startTracking()" *ngIf="!isTracking">
+    <ion-icon name="hand"></ion-icon>
+    Stop Tracking
+  </button> -->
+<ion-content padding> 
+  <div #map  id="map"></div>
+
+  <!-- <ion-list> 
+    <ion-list-header> 
+      Previous Tracks
+    </ion-list-header>
+    <ion-item *ngFor="let route of previousTracks">
+      {{ route.finished | date  }}, {{route.path.length}} Waypoints
+      <button ion-button clear item-end (click)="showHistoryRoute(Route.path)">View Route </button>
+    </ion-item>
+  </ion-list> -->
+
+</ion-content> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-header >
   <ion-toolbar>
       <ion-title  class="main-header4">Map</ion-title>
   
@@ -8,20 +64,20 @@
 
 <ion-content >
   <ion-fab vertical="top" horizontal="end" slot="fixed" >
-    <!-- <ion-fab-button (click)="close()" color="white">
+    <ion-fab-button (click)="close()" color="white">
       <ion-icon name="ios-close-circle" ></ion-icon>
-    </ion-fab-button> -->
-  </ion-fab>
+    </ion-fab-button>
+  </ion-fab> -->
     <!--*********** Map wrapper  ***********-->
-  <div id="wrapper">
+  <!-- <div id="wrapper"> -->
       <!--*********** Map  ***********-->
-       <div #map id="map"></div>
+       <!-- <div #map id="map"></div> -->
       <!--*********** info box  ***********-->
       <!-- <div class="map-bottom request-controls"></div> -->
   
-  </div>
+  <!-- </div>
   <ion-button> </ion-button>
-</ion-content>
+</ion-content> -->
 
 
 

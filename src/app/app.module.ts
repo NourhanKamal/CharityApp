@@ -18,7 +18,7 @@ import { IonicStorageModule } from '@ionic/storage'
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
 import {NativeStorage} from '@ionic-native/native-storage/ngx'
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Geolocation,  } from '@ionic-native/geolocation/ngx';
+import { Geolocation  } from '@ionic-native/geolocation/ngx';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

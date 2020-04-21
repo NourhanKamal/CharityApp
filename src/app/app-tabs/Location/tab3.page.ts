@@ -1,14 +1,14 @@
 import { Component, OnInit,ViewChild , ElementRef, Injectable  } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { IonContent ,ModalController,NavParams,NavController,LoadingController} from '@ionic/angular';
+import { IonContent ,ModalController,NavParams,NavController,LoadingController, Platform, AlertController} from '@ionic/angular';
 import { TravelService } from '../../../services/travel.service';
 import { IonicComponentService} from '../../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { charityService } from '../../../services/charity.service';
-
-
-
+import { Geolocation  } from '@ionic-native/geolocation/ngx';
+import { Storage } from '@ionic/storage'
+import { filter } from 'rxjs/operators';
 declare var google;
 
 
@@ -32,6 +32,15 @@ export class Tab3Page implements OnInit {
 
  
   map: any;
+  currentMapTrack = null;
+  
+
+  isTracking = false;
+  trackedRoute = [];
+  previousTracks = [];
+
+  positionSusbscription: Subscription;
+
   markerSelected: boolean = false;
   //******************** Map style  **************************//
   //***** go to snazzymaps.com for more map style  ***********//
@@ -46,14 +55,118 @@ export class Tab3Page implements OnInit {
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     public router: Router,
-    public charityService: charityService
+    public charityService: charityService,
+    private plt: Platform,
+    private geolocation: Geolocation,
+    private storage: Storage
+    // private alertCtrl: AlertController
   )
   {
       this.charityId =  this.activatedRoute.snapshot.paramMap.get('charityId');
       //console.log("Get activatedRoute categoryId="+ this.activatedRoute.snapshot.paramMap.get('categoryId'));
    }
 
+   ngOnInit() {
 
+
+    this.plt.ready().then(() => { this.loadHistoricRoutes(); 
+
+      let mapOptions = { 
+       zoom: 12,
+       mapTypeIdL: google.maps.MapTypeId.ROADMAP,
+       mapTypeControl: false,
+       streetViewControl: false, 
+       fullscreenControl: false
+
+      };
+
+
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions); 
+      this.geolocation.getCurrentPosition().then(pos => {
+        let latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        this.map.setCenter(latLng);
+        this.map.setZoom(10); 
+
+      })
+
+    });
+
+    
+
+    //this.categoryId = this.navParams.get('categoryId');
+    //console.log("$$$$ model >>>>>>get categoryId ="+this.categoryId);
+    // this.getPlace();
+    // setTimeout(() => {
+    //    this.displayGoogleMap();
+    // }, 1000);
+
+  }
+
+  // 
+
+   loadHistoricRoutes() {
+     this.storage.get('routes').then(data => { 
+       if (data) { 
+
+        this.previousTracks = data;
+
+       }
+     })
+   }
+
+   startTracking(){ 
+     this.isTracking = true;
+     this.trackedRoute = [];
+
+     this.positionSusbscription = this.geolocation.watchPosition().pipe(
+       filter(p => p.coords !== undefined
+        )
+     ).subscribe(data => {
+       setTimeout(() => {
+         this.trackedRoute.push({ 
+           lat: data.coords.latitude,
+           lng: data.coords.longitude
+         });
+         this.redrawPath(this.trackedRoute);
+          
+       })
+     })
+
+   }
+   
+   redrawPath(path) {
+
+    if (this.currentMapTrack) {
+      this.currentMapTrack.setMap(null);
+    }
+    if (path.length > 1) {
+      this.currentMapTrack = new google.maps.Polyline({
+        path: path,
+        geodesic: true, 
+        strokeColor: '#ff00ff',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
+
+      this.currentMapTrack.setMap(this.map);
+    }
+
+   }
+
+   stopTracking(){
+     let newRoute = { finished: new Date().getTime(), path:this.trackedRoute};
+     this.previousTracks.push(newRoute);
+     this.storage.set('routes', this.previousTracks);
+
+     this.isTracking = false; 
+     this.positionSusbscription.unsubscribe();
+     this.currentMapTrack.setMap(null);
+   }
+
+   showHistoryRoute(Route){
+     this.redrawPath(Route);
+
+   }
   //  ngAfterContentInit(): void { 
   //    this.map = new google.maps.Map( 
   //      this.mapElement.nativeElement, {
@@ -64,16 +177,7 @@ export class Tab3Page implements OnInit {
   //  }
    
 
-   ngOnInit() {
-
-    //this.categoryId = this.navParams.get('categoryId');
-    //console.log("$$$$ model >>>>>>get categoryId ="+this.categoryId);
-    this.getPlace();
-    setTimeout(() => {
-       this.displayGoogleMap();
-    }, 1000);
-
-  }
+   
 
   async close(){
     await this.modalController.dismiss();
