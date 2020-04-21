@@ -1,11 +1,14 @@
 import { Component, OnInit,ViewChild , ElementRef, Injectable  } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 import { IonContent ,ModalController,NavParams,NavController,LoadingController} from '@ionic/angular';
-
 import { TravelService } from '../../../services/travel.service';
 import { IonicComponentService} from '../../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { charityService } from '../../../services/charity.service';
+
+
+
 declare var google;
 
 
@@ -20,8 +23,9 @@ export class Tab3Page implements OnInit {
  // @ViewChildren("map")  mapElement: ElementRef;
 
  @ViewChild('map',  { static: true }) mapElement: ElementRef;
-  categoryId:any
+  charityId:any;
   viewType: string = "map";
+  
 
   public places: any[];
   //public places: Observable<Place[]>;
@@ -41,14 +45,24 @@ export class Tab3Page implements OnInit {
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
-    public router: Router
+    public router: Router,
+    public charityService: charityService
   )
   {
-      this.categoryId =  this.activatedRoute.snapshot.paramMap.get('categoryId');
+      this.charityId =  this.activatedRoute.snapshot.paramMap.get('charityId');
       //console.log("Get activatedRoute categoryId="+ this.activatedRoute.snapshot.paramMap.get('categoryId'));
    }
 
 
+  //  ngAfterContentInit(): void { 
+  //    this.map = new google.maps.Map( 
+  //      this.mapElement.nativeElement, {
+  //        center: {lat: -34.397, lng: 150.644 }, 
+  //        zoom: 8
+  //      }
+  //    );
+  //  }
+   
 
    ngOnInit() {
 
@@ -67,11 +81,11 @@ export class Tab3Page implements OnInit {
 
   getPlace(){
     this.ionicComponentService.presentLoading();
-    this.travelService.getPlacesByCatId( this.categoryId ).subscribe(actionArray => {
-      console.log("######################### firebase/ getPlace loaded ="+actionArray);
+    this.charityService.getPlacesById( this.charityId ).subscribe(actionArray => {
+      console.log(" firebase/ getPlace loaded ="+actionArray);
       this.places = actionArray;
       this.ionicComponentService.dismissLoading();
-      console.log("+++++++++++++= place array="+JSON.stringify(this.places));
+      console.log(" place array="+JSON.stringify(this.places));
     });
   }
 

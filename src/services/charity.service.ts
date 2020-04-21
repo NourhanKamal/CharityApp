@@ -4,6 +4,7 @@ import { Item } from '../services/Item';
 import { Observable } from 'rxjs/Observable';
 import  'rxjs/add/operator/map';
 import {map, take} from 'rxjs/operators';
+import { firestore } from 'firebase/app' 
 
 @Injectable() 
 
@@ -48,4 +49,27 @@ constructor(public afs: AngularFirestore) {
            );
 
     }
+
+    getPlacesById(charityId: string){
+        console.log("_____START getPlacesById()="+charityId);
+        // this.postDoc = this.afs.doc<Post>(`posts/${categoryId}`)
+        // return this.postDoc.valueChanges()
+      
+        return this.afs.collection<any>('/items', ref => ref
+        .where('items', '==', charityId))
+        //.orderBy("timestamp", "desc").limit(10))
+        .snapshotChanges().pipe(
+          map(actions => {  
+            return actions.map(a => {
+              const data = a.payload.doc.data();
+              // get id from firebase metadata 
+              const id = a.payload.doc.id; 
+              console.log("####get a group of countries="+data);
+              return { id, ...data };
+            });
+          })
+        );
+      }
+      
+
 };
