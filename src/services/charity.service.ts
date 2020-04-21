@@ -50,6 +50,27 @@ constructor(public afs: AngularFirestore) {
 
     }
 
+
+    getLocation(id: string): Observable<Item> { 
+        
+      console.log("This id", id)
+
+      return this.itemsCollection.doc<Item>(id).valueChanges().pipe(
+       
+        take(1),
+        map(charity => { 
+
+          console.log("This id", charity) 
+          charity.id = id;
+          return charity;
+
+         })
+         );
+
+  }
+
+
+    
     getPlacesById(charityId: string){
         console.log("_____START getPlacesById()="+charityId);
         // this.postDoc = this.afs.doc<Post>(`posts/${categoryId}`)

@@ -9,6 +9,11 @@ import { charityService } from '../../../services/charity.service';
 import { Geolocation  } from '@ionic-native/geolocation/ngx';
 import { Storage } from '@ionic/storage'
 import { filter } from 'rxjs/operators';
+import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
+import {map, take} from 'rxjs/operators';
+import { Item }  from  '../../../services/Item';
+
+
 declare var google;
 
 
@@ -27,21 +32,25 @@ export class Tab3Page implements OnInit {
   viewType: string = "map";
   
 
-  public places: any[];
-  //public places: Observable<Place[]>;
-
+  parentPath: any;
  
   map: any;
+
+
+  locations: Observable<any>;
+
+  locationCollection: AngularFirestoreCollection<any>;
+
+watch = null;
+markers = [];
+
+
+
   currentMapTrack = null;
   
 
   isTracking = false;
-  trackedRoute = [];
-  previousTracks = [];
 
-  positionSusbscription: Subscription;
-
-  markerSelected: boolean = false;
   //******************** Map style  **************************//
   //***** go to snazzymaps.com for more map style  ***********//
   //**********************************************************//
@@ -58,286 +67,126 @@ export class Tab3Page implements OnInit {
     public charityService: charityService,
     private plt: Platform,
     private geolocation: Geolocation,
-    private storage: Storage
-    // private alertCtrl: AlertController
+    private storage: Storage,
+    private afs: AngularFirestore
   )
   {
-      this.charityId =  this.activatedRoute.snapshot.paramMap.get('charityId');
-      //console.log("Get activatedRoute categoryId="+ this.activatedRoute.snapshot.paramMap.get('categoryId'));
    }
 
    ngOnInit() {
+    this.loadMap()
+
+    this.locationCollection = this.afs.collection('items');
+
+    // this.charityService.getItems().subscribe(location => {
+    //   console.log(location)
+    //   this.locations = location;
+    // })
+     this.locations = this.locationCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+          
+        })
+      )
+    );
 
 
-    this.plt.ready().then(() => { this.loadHistoricRoutes(); 
-
-      let mapOptions = { 
-       zoom: 12,
-       mapTypeIdL: google.maps.MapTypeId.ROADMAP,
-       mapTypeControl: false,
-       streetViewControl: false, 
-       fullscreenControl: false
-
-      };
-
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions); 
-      this.geolocation.getCurrentPosition().then(pos => {
-        let latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        this.map.setCenter(latLng);
-        this.map.setZoom(10); 
-
-      })
-
-    });
-
+    this.locations.subscribe(locations => {
+      console.log('new locations:', locations );
+       this.updateMap(locations);
+    })
     
 
-    //this.categoryId = this.navParams.get('categoryId');
-    //console.log("$$$$ model >>>>>>get categoryId ="+this.categoryId);
-    // this.getPlace();
-    // setTimeout(() => {
-    //    this.displayGoogleMap();
-    // }, 1000);
+    
+    
+
+ 
+    this.parentPath= this.router.url;
+    console.log("....Current route path"+this.parentPath);
+
 
   }
 
-  // 
+ 
+  
 
-   loadHistoricRoutes() {
-     this.storage.get('routes').then(data => { 
-       if (data) { 
 
-        this.previousTracks = data;
-
-       }
-     })
-   }
-
-   startTracking(){ 
-     this.isTracking = true;
-     this.trackedRoute = [];
-
-     this.positionSusbscription = this.geolocation.watchPosition().pipe(
-       filter(p => p.coords !== undefined
-        )
-     ).subscribe(data => {
-       setTimeout(() => {
-         this.trackedRoute.push({ 
-           lat: data.coords.latitude,
-           lng: data.coords.longitude
-         });
-         this.redrawPath(this.trackedRoute);
-          
-       })
-     })
-
-   }
+  updateMap(locations) {
+    // Remove all current marker
+    this.markers.map(marker => marker.setMap(null));
+    this.markers = [];
    
-   redrawPath(path) {
-
-    if (this.currentMapTrack) {
-      this.currentMapTrack.setMap(null);
-    }
-    if (path.length > 1) {
-      this.currentMapTrack = new google.maps.Polyline({
-        path: path,
-        geodesic: true, 
-        strokeColor: '#ff00ff',
-        strokeOpacity: 1.0,
-        strokeWeight: 3
+    for (let loc of locations) {
+      let latLng = new google.maps.LatLng(loc.lat, loc.lng);
+   
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: latLng
       });
-
-      this.currentMapTrack.setMap(this.map);
+      this.markers.push(marker);
     }
-
-   }
-
-   stopTracking(){
-     let newRoute = { finished: new Date().getTime(), path:this.trackedRoute};
-     this.previousTracks.push(newRoute);
-     this.storage.set('routes', this.previousTracks);
-
-     this.isTracking = false; 
-     this.positionSusbscription.unsubscribe();
-     this.currentMapTrack.setMap(null);
-   }
-
-   showHistoryRoute(Route){
-     this.redrawPath(Route);
-
-   }
-  //  ngAfterContentInit(): void { 
-  //    this.map = new google.maps.Map( 
-  //      this.mapElement.nativeElement, {
-  //        center: {lat: -34.397, lng: 150.644 }, 
-  //        zoom: 8
-  //      }
-  //    );
-  //  }
+  }
    
+  loadMap() { 
 
-   
 
-  async close(){
-    await this.modalController.dismiss();
+    let latLng = new google.maps.LatLng(51.9036442, 7.6673267);
+
+    let mapOptions = { 
+      center: latLng, 
+      zoom: 5,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
 
-  getPlace(){
-    this.ionicComponentService.presentLoading();
-    this.charityService.getPlacesById( this.charityId ).subscribe(actionArray => {
-      console.log(" firebase/ getPlace loaded ="+actionArray);
-      this.places = actionArray;
-      this.ionicComponentService.dismissLoading();
-      console.log(" place array="+JSON.stringify(this.places));
+ 
+  
+
+  
+
+  startTracking() {
+    this.isTracking = true;
+    this.watch = this.geolocation.watchPosition().subscribe(position => {
+      if (position) {
+        this.addNewLocation(
+          position.coords.latitude,
+          position.coords.longitude,
+          position.timestamp
+        );
+      }
     });
   }
 
+   addNewLocation(lat, lng, timestamp){
+
+    console.log("new location added" , lat, lng, timestamp)
+
+     this.locationCollection.add({ 
+       lat,
+       lng,
+       timestamp
+     });
+     let position = new google.maps.LatLng(lat, lng);
+     this.map.setCenter(position);
+     this.map.setZoom(5);
+
+   }
+
+   
+
+     deleteLocation(pos){ 
+       this.locationCollection.doc(pos.id).delete();
+     }
+
   
-  goDetail(placeId: string){
-    this.ionicComponentService.presentTimeoutLoading(500,true);
-    console.log("...goDetail placeId="+placeId);
-    this.close();
-    this.router.navigateByUrl('/travel-place-detail/'+placeId);
-  }
 
-  displayGoogleMap() {
-    let latLng = new google.maps.LatLng(13.801532791932946, 100.54677690766607);
-    let mapOptions = {
-        center: latLng,
-        zoom: 12,
-        styles: this.mapStyle,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true
-    };
-    console.log("...call map");
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-   // delay or await
-    this.addMarkersToMap()
-  }
-
-
-
-  addMarkersToMap() {
-    console.log("...call addMarkeToMap");
-
-    for(let place of this.places) {
-      console.log("lat="+place.lat);
-      var position = new google.maps.LatLng(place.lat, place.lng);
-      var markerIcon = {
-        url: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png", // icon url
-        scaledSize: new google.maps.Size(50, 50), // scaled size
-        origin: new google.maps.Point(0,0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
-      };
-      //var markerIcon = 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
-      var mapMarker = new google.maps.Marker({
-            position: position,
-            animation: google.maps.Animation.DROP,
-            markerSelected : true,
-            title: place.name,
-            email: place.email,
-            web: place.web,
-            phone: place.phone,
-
-            //**** Custom Marker Symbols ****/
-            icon:  markerIcon,
-
-                anchorPoint: new google.maps.Point(0, -40)
-      });
-
-      mapMarker.setMap(this.map);
-      // add information window to marker
-      //this.addInfoWindowToMarker(mapMarker);
-
-
-      this.map.setCenter(position);
-      // google.maps.event.addListener( mapMarker, 'click', function() {
-      //   this.goDetail(place.id);
-      //   //alert( place.lat + "-" + place.lng + "//placeId=" + place.id);xs
-      //   /// do update something
-      // });
-      google.maps.event.addListener(mapMarker, 'click', () => {
-        this.goDetail(place.id);
-      });
-
-
-    }
-
-  }
-
-
-x
-
-  addInfoWindowToMarker(marker) {
-
-    var infoWindowContent = '<div id="iw-container">' +
-                                '<div class="iw-content">' +
-                                      '<div class="iw-subTitle">'+marker.title+'</div>' +
-                                      '<br><b>Phonesssssssssss:</b> '+marker.phone+'<br><b>E-mail:</b>'+marker.email+'<br><b>Website:</b> '+marker.web+'</p>'+
-                                '</div>' +
-                                //'<div id="do-something-button">button</div>' +
-                            '</div>';
-    var contentString = '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-        '<div id="bodyContent">' +
-        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-        'sandstone rock formation in the southern part of the ' +
-        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-        'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-        'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-        'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-        'Aboriginal people of the area. It has many springs, waterholes, ' +
-        'rock caves and ancient paintings. Uluru is listed as a World ' +
-        'Heritage Site.</p>' +
-        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-        'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-        '(last visited June 22, 2009).</p>' +
-        '</div>' +
-        '</div>';
-
-    // var infoWindowContent = '<div id="iw-container">' +
-    //                         '<div class="iw-content">' +
-    //                               '<div class="iw-subTitle">'+marker.title+'</div>' +
-    //                               '<br><b>Phone:</b> '+marker.phone+'<br><b>E-mail:</b>'+marker.email+'<br><b>Website:</b> '+marker.web+'</p>'+
-    //                         '</div>' +
-    //                         //'<div id="do-something-button">button</div>' +
-    //                     '</div>';
-
-
-    var infoWindow = new google.maps.InfoWindow();
-        // infoWindow.setOptions({
-        //     disableAutoPan:false
-        // });
-        infoWindow.setContent(infoWindowContent);
-
-        marker.addListener('click', () => {
-              this.closeAllInfoWindows();
-              infoWindow.open(this.map, marker);
-              // add listener that will capture the click event of the infoWindow
-              // google.maps.event.addListener(infoWindow, 'domready', () => {
-              //   document.getElementById('do-something-button').addEventListener('click', () => {
-              //      this.doSomething();
-              //   });
-              // });
-
-        });
-        this.infoWindows.push(infoWindow);
-}
-
-
-
-doSomething(){
-  console.log("doSomething");
-}
-closeAllInfoWindows() {
-    for(let window of this.infoWindows) {
-      window.close();
-    }
-}
+ 
 
 }
 
@@ -356,80 +205,4 @@ closeAllInfoWindows() {
 
 
 
-
-
-  //   ionViewDidLoad(){
-  //     if(this.ngAuth.auth.currentUser != null){
-  //       console.log("Welcome Home Page");
-  //     }
-  //     else {
-  //       this.navCtrl.navigateRoot('/login');
-  //     }
-  //   }
-  // start(){
-
-  // Background Tracking
-
-//   let config = {
-//     desiredAccuracy: this.desiredAccuracy,
-//     stationaryRadius: this.stationaryRadius,
-//     distanceFilter: this.distanceFilter,
-//     debug: true,
-//     interval: 2000
-//   };
-
-//   this.backgroundGeolocation.configure(config).then((location) => {
-
-//     console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
-
-//     // Run update inside of Angular's zone
-//     this.zone.run(() => {
-//       this.lat = location.latitude;
-//       this.lng = location.longitude;
-//       this.db.database.ref(`testBackgroundGeo/${new Date().getTime()}/`).set({
-//         latitude : this.lat ,
-//         longitude : this.lng
-//       }).then(res => {
-//         console.log('result location' , res)
-//       })
-//     });
-
-//   }, (err) => {
-
-//     console.log(err);
-
-//   });
-
-//   // Turn ON the background-geolocation system.
-//   this.backgroundGeolocation.start();
-
-
-//   // Foreground Tracking
-
-// let options = {
-//   frequency: 3000,
-//   enableHighAccuracy: true
-// };
-
-// this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
-
-//   console.log(position);
-
-//   // Run update inside of Angular's zone
-//   this.zone.run(() => {
-//     this.lat = position.coords.latitude;
-//     this.lng = position.coords.longitude;
-//   });
-
-// });
-//   }
-
-//   stop(){
-//     console.log('stopTracking');
-
-//     console.log('stopTracking');
-
-//     this.backgroundGeolocation.finish();
-//     this.watch.unsubscribe();
-//   }
 

@@ -8,4 +8,7 @@ export interface Item {
     masrElkheer?: string;
     elOrman?: string; 
     bankTa3am?: string;
+    lat?: number;
+    lng?: string;
+    timestamp?: string;
   }
