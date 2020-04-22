@@ -1,11 +1,11 @@
-/* .btnMaly{
+.btnMaly{
     background: rgba(0, 0, 0, 0);    
-    background-image: url('../assets/imgs/6.png') ;
+    background-image: url('../../../assets/icon/6.png') ;
     background-repeat: no-repeat;
     background-size: 100%;
     width: 70%;
     height:70%;
-} */
+} 
 .container { 
     padding-top: 50px;
 }
@@ -42,7 +42,6 @@
     
     width: 75%;
     margin: auto;
-    padding-top: 50px;
     ion-list {
         background: none;
         ion-item {
