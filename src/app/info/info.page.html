@@ -5,16 +5,16 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header> 
-<ion-content style="align-content: center;">
-  <div id="main">
+<ion-content >
+  <div id="main" style="text-align: right;" dir="rtl">
   <div>
-    <h1 style="text-align: center;background-color: green;color: white; width: 75%; border-radius: 5px;">{{charity.title}}</h1>
+    <h1 style="text-align: center;background-color: green;color: white; border-radius: 8px;">{{charity.title}}</h1>
   </div>
-  <div style="background-color: green;color: white;width: 75%; border-radius: 5px;">
+  <div style="background-color: green;color: white; border-radius: 8px;">
     <p > {{charity.description}} </p>
     -------------------------------
-    <p > {{charity.lan}} </p>
-    <p > {{charity.lng}} </p>     
+    <p > العنوان: {{charity.address}} </p>
+    <p > الهاتف: {{charity.phone}} </p>     
   </div>
 </div>
 </ion-content>
