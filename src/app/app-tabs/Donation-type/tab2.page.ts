@@ -33,5 +33,13 @@ export class Tab2Page {
       .then(()=> this.router.navigate(['/login']))
   
     }
+    
+  malyWithTab(){
+    this.router.navigateByUrl('/tabs/tab2/maly')
+  }
+
+  ayniWithTab(){
+    this.router.navigateByUrl('/tabs/tab2/ayni')
+  }
 
 }

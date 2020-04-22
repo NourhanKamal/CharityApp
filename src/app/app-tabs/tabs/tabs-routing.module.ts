@@ -17,6 +17,29 @@ const routes: Routes = [
           }
         ]
       },
+      
+      {
+        path: 'tab2/maly',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule)
+          }
+        ]
+      },
+
+      {
+        path: 'tab2/ayni',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../../donation-type/ayni/ayni.module').then( m => m.AyniPageModule)
+          }
+        ]
+      },
+
       {
         path: 'tab2',
         children: [
@@ -41,14 +64,33 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
-      }
+      } ,
+      {
+        path: 'maly',
+        children: [ {
+
+          path: '',
+          loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule)
+
+
+        } ]
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/tab1',
+        pathMatch: 'full'
+      } ,
     ]
   },
   {
     path: '',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'
-  }
+  },
+  {
+    path: 'maly',
+    loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule)
+  },
 ];
 
 @NgModule({
