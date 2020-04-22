@@ -21,7 +21,7 @@ export class Tab1Page {
     this.charityService.getItems().subscribe(charity => {
       
       
-      console.log(charity);
+      console.log("charitis",charity);
       this.charities = charity;
     
     }

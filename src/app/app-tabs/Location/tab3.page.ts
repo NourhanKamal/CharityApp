@@ -42,7 +42,7 @@ export class Tab3Page implements OnInit {
 
 watch = null;
 markers = [];
-
+charities;
 charity;
 
   currentMapTrack = null;
@@ -72,30 +72,79 @@ charity;
    }
 
    ngOnInit() {
-    this.loadMap()
+    
 
-    this.locationCollection = this.afs.collection('items');
-
-     this.locations = this.locationCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if(id) {
+      this.charityService.getItem(id).subscribe(res => {
+        console.log("Get charities=" + res) 
+  
+        this.charity = res;
+        console.log(this.charity)
+        let latLng = new google.maps.LatLng(this.charity.lan, this.charity.lng);
+  
+        let mapOptions = { 
+          center: latLng, 
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        let marker = new google.maps.Marker({
+          map: this.map,
+          animation: google.maps.Animation.DROP,
+          position: latLng,
+          title: this.charity.title
+        });
+        
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        marker.setMap(this.map);
+  
+      });
+    } else {
+        let latLng;
+        let charityService = this.charityService
+        let mapElement = this.mapElement
+        let map = this.map
+        this.geolocation.getCurrentPosition().then(function (position) {
+          console.log(position)
+          latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          charityService.getItems().subscribe(charitys => {
+        
+            let mapOptions = { 
+              center: latLng, 
+              zoom: 13,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
           
+            console.log("charitis",charitys);
+            //this.charities = charitys;
+            map = new google.maps.Map(mapElement.nativeElement, mapOptions);
+            var infowindow = new google.maps.InfoWindow();
+            var marker;
+            for (let item of charitys) {
+              console.log(item)
+              marker = new google.maps.Marker({
+                map: map,
+                animation: google.maps.Animation.DROP,
+                position: new google.maps.LatLng(item['lan'], item.lng),
+                title: item.title
+              });
+              infowindow.setContent(item.title);
+              infowindow.open(map, marker);
+            }
         })
-      )
-    );
+        })
+      
+    
 
-
-    this.locations.subscribe(locations => {
+  }
+    /* this.locations.subscribe(locations => {
       console.log('new locations:', locations );
        this.updateMap(locations);
-    })
+    }) */
   
  
-    this.parentPath= this.router.url;
-    console.log("....Current route path"+this.parentPath);
+    /* this.parentPath= this.router.url;
+    console.log("....Current route path"+this.parentPath); */
  
 
     // this.getItem()
@@ -109,8 +158,7 @@ charity;
 
 
 
-
-  updateMap(locations) {
+  /* updateMap(locations) {
     // Remove all current marker
     this.markers.map(marker => marker.setMap(null));
     this.markers = [];
@@ -125,21 +173,7 @@ charity;
       });
       this.markers.push(marker);
     }
-  }
-   
-  loadMap() { 
-
-
-    let latLng = new google.maps.LatLng(51.9036442, 7.6673267);
-
-    let mapOptions = { 
-      center: latLng, 
-      zoom: 5,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-  }
+  } */
 
  
   
@@ -147,7 +181,7 @@ charity;
 
   
 
-  startTracking() {
+ /*  startTracking() {
     this.isTracking = true;
     this.watch = this.geolocation.watchPosition().subscribe(position => {
       if (position) {
@@ -158,9 +192,9 @@ charity;
         );
       }
     });
-  }
+  } */
 
-   addNewLocation(lat, lng, timestamp){
+   /* addNewLocation(lat, lng, timestamp){
 
     console.log("new location added" , lat, lng, timestamp)
 
@@ -173,13 +207,13 @@ charity;
      this.map.setCenter(position);
      this.map.setZoom(5);
 
-   }
+   } */
 
    
 
-     deleteLocation(pos){ 
+  /*    deleteLocation(pos){ 
        this.locationCollection.doc(pos.id).delete();
-     }
+     } */
 
     //  getItem(){ 
      
@@ -194,23 +228,20 @@ charity;
     
     // }; 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
