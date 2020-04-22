@@ -3,29 +3,29 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>verify-email</ion-title>
+    <ion-title>Verify Email</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
      
-   <div  class="login-form" >
+   <div id="main" class="login-form" >
   <ion-grid>
     <ion-row>
-      <h2> Verify Email</h2>
+      
       <p>
         Please check your email and click on the link to verfiy your email address.
       </p>
       <!-- <ion-button type="submit" (click)="authService.SendVerificationMail()" expand="block">
         Resend Verification Email
       </ion-button> -->
-      <ion-button  mode="ios" color="danger" expand="block"  class="ion-margin-top" (click)="authService.SendVerificationMail()" >Resend Verification Email </ion-button>
+      <ion-button style="width: 100%;" mode="ios" color="danger" expand="block"  class="ion-margin-top" (click)="authService.SendVerificationMail()" >Resend Verification Email </ion-button>
     </ion-row>
   </ion-grid>
   <ion-row>
     <ion-col>
       <!-- <ion-button type="submit" color="danger" expand="block" [routerLink]="['/login']">Login</ion-button> -->
-          <ion-button  style="padding-right: 10px;"  mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/login"> Login </ion-button>
+          <ion-button   mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/login"> Login </ion-button>
     </ion-col>
     
   </ion-row>
