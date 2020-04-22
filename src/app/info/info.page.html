@@ -1,28 +1,21 @@
-<ion-content >
-  <ion-header >
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref=""></ion-back-button>
-      </ion-buttons>
-
-      <ion-title  style="padding-left: 80px;">Charity</ion-title>
-    </ion-toolbar>
-  </ion-header> 
-
-
-
-
-          <h2 > {{charity.title}} </h2>   
-          <p > {{charity.description}} </p>
-          <p > {{charity.lan}} </p>
-          <p > {{charity.lng}} </p>     
-          
-
-<div class="footer-box"></div>
-
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+<ion-content style="align-content: center;">
+  <div id="main">
+  <div>
+    <h1 style="text-align: center;background-color: green;color: white; width: 75%; border-radius: 5px;">{{charity.title}}</h1>
+  </div>
+  <div style="background-color: green;color: white;width: 75%; border-radius: 5px;">
+    <p > {{charity.description}} </p>
+    -------------------------------
+    <p > {{charity.lan}} </p>
+    <p > {{charity.lng}} </p>     
+  </div>
+</div>
 </ion-content>
 
-
-<ion-footer>
-    
-</ion-footer>
