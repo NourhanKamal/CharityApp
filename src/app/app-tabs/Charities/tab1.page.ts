@@ -35,6 +35,9 @@ export class Tab1Page {
     
     }
   
+    openInfoWithInTab(){
+      this.router.navigateByUrl("'tabs/tab1/info/'+charity.id")
+    }
   
 
 }

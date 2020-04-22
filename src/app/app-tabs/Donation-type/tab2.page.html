@@ -1,10 +1,3 @@
-
-<ion-header >
-  <ion-toolbar>
-
-  </ion-toolbar>
-</ion-header>
-
 <ion-content >
   <ion-header >
     <ion-toolbar>
@@ -15,38 +8,23 @@
 
 
   <div class="login-form">
-    <!-- <ion-text color="dark">
-        <h2 text-center class="ion-margin-bottom main-header7">
-            Sign in to continue
-        </h2>
-    </ion-text> -->
-
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/maly">
+   
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top" (click)='malyWithTab()'>
       مالى
     </ion-button>
 
 
-    <!-- <span class="divider line one-line">or</span>
 
-    <span class="already">Already a user?</span> -->
+    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top" (click)='ayniWithTab()'>
+      عينى
+  </ion-button> <br>
 
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/ayni">
+
+    <!-- <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/ayni">
         عينى
-    </ion-button> <br>
+    </ion-button> <br> -->
 
     </div>
-<!-- <div class="container"> 
-  
-  <ion-button expand="block" [routerLink]="['/maly']"> تبرع مالى </ion-button> 
-  <br>
-  <ion-button expand="block" [routerLink]="['/ayni']"> تبرع عينى </ion-button> 
 
-</div>
-&nbsp; &nbsp;
-&nbsp;
-&nbsp;
-
- 
-<ion-button size="default" shape="round"  color="primary" expand="block" (click)="logOut()">signOut</ion-button>   -->
 </div>
 </ion-content>
