@@ -11,17 +11,13 @@
 
   <div> 
 
-    <!-- <ion-button expand='block' (click)='startTracking()' *ngIf="!isTracking"> -->
       <ion-button expand='block' (click)='startTracking()' >
 
       <ion-icon name="locate" slot="start" ></ion-icon>
       Add Location
     </ion-button>
 
-    <!-- <ion-button expand='block' (click)='stopTracking()' *ngIf="!isTracking">
-      <ion-icon name="hand" slot="start" ></ion-icon>
-      Stop Tracking
-    </ion-button> --> 
+  
     <ion-item-sliding *ngFor="let pos of locations | async ">
       <ion-item>
      <ion-label text-warp>

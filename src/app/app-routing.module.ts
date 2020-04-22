@@ -41,9 +41,9 @@ const routes: Routes = [
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   },
  
-  {
-    path: 'tabs/tab1/:LatLng',
+  {    path: 'tabs/tab3/:id',
     loadChildren: () => import('./app-tabs/Location/tab3.module').then( m => m.Tab3PageModule)
+
   },
 ];
 @NgModule({

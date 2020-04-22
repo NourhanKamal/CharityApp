@@ -30,7 +30,7 @@ export class Tab3Page implements OnInit {
  @ViewChild('map',  { static: true }) mapElement: ElementRef;
   viewType: string = "map";
   
-
+   
   parentPath: any;
  
   map: any;
@@ -43,7 +43,7 @@ export class Tab3Page implements OnInit {
 watch = null;
 markers = [];
 
-
+charity;
 
   currentMapTrack = null;
   
@@ -92,20 +92,22 @@ markers = [];
       console.log('new locations:', locations );
        this.updateMap(locations);
     })
-    
-
-    
-    
-
+  
  
     this.parentPath= this.router.url;
     console.log("....Current route path"+this.parentPath);
+ 
+
+    // this.getItem()
+    
+
+
+
 
 
   }
 
- 
-  
+
 
 
   updateMap(locations) {
@@ -140,6 +142,7 @@ markers = [];
   }
 
  
+  
   
 
   
@@ -178,7 +181,18 @@ markers = [];
        this.locationCollection.doc(pos.id).delete();
      }
 
+    //  getItem(){ 
+     
+    //   const id = this.activatedRoute.snapshot.paramMap.get('lat'); 
+    //   this.charityService.getItem(id).subscribe(res => {
+    //     console.log("Get charities=" + res) 
   
+    //     this.charity = res;
+  
+  
+    //   });
+    
+    // }; 
 
  
 
