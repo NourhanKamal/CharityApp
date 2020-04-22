@@ -1,39 +1,41 @@
-
 <ion-header >
   <ion-toolbar>
-
+    <ion-title size="large" style="text-align: center;" color="greengrab">نوع التبرع</ion-title>
   </ion-toolbar>
-</ion-header>
-
+</ion-header> 
 <ion-content >
-  <ion-header >
-    <ion-toolbar>
-      <ion-title size="large" style="text-align: center;" color="greengrab">نوع التبرع</ion-title>
-    </ion-toolbar>
-  </ion-header> 
+
   <div id="main">
 
 
-  <div class="login-form">
+  <div class="login-form" style="text-align: center;">
     <!-- <ion-text color="dark">
         <h2 text-center class="ion-margin-bottom main-header7">
             Sign in to continue
         </h2>
     </ion-text> -->
-
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/maly">
-      مالى
-    </ion-button>
-
-
-    <!-- <span class="divider line one-line">or</span>
-
-    <span class="already">Already a user?</span> -->
-
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/ayni">
-        عينى
-    </ion-button> <br>
-
+    <ion-row style="background-color: white; ">
+      <ion-col>
+        <a routerLink="/maly">
+          <img src="assets/icon/jjj.png" style="width: 50%;" alt="">
+        
+        </a>
+        <br>
+        <span>مالي</span>
+      </ion-col>
+      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <a routerLink="/ayni">
+          <img src="assets/icon/1.png" style="width: 50%;" alt="">
+        
+        </a>
+        <br>
+        <span>عيني</span>
+      </ion-col>
+      
+    </ion-row>
     </div>
 <!-- <div class="container"> 
   
