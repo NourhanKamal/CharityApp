@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuardService } from 'src/app/auth.guard.service';
 
 const routes: Routes = [
   {
@@ -13,7 +14,19 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../Charities/tab1.module').then(m => m.Tab1PageModule)
+              import('../Charities/tab1.module').then(m => m.Tab1PageModule),
+              canActivate: [AuthGuardService]
+          }
+        ]
+      },
+      {
+        path: 'tab1/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../Charities/tab1.module').then(m => m.Tab1PageModule),
+              canActivate: [AuthGuardService]
           }
         ]
       },
@@ -24,7 +37,8 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule)
+              import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule),
+              canActivate: [AuthGuardService]
           }
         ]
       },
@@ -35,7 +49,8 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../../donation-type/ayni/ayni.module').then( m => m.AyniPageModule)
+              import('../../donation-type/ayni/ayni.module').then( m => m.AyniPageModule),
+              canActivate: [AuthGuardService]
           }
         ]
       },
@@ -46,7 +61,8 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../Donation-type/tab2.module').then(m => m.Tab2PageModule)
+              import('../Donation-type/tab2.module').then(m => m.Tab2PageModule),
+              canActivate: [AuthGuardService]
           }
         ]
       },
@@ -56,13 +72,14 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../Location/tab3.module').then(m => m.Tab3PageModule)
+              import('../Location/tab3.module').then(m => m.Tab3PageModule),
+              canActivate: [AuthGuardService]
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/tab2',
         pathMatch: 'full'
       } ,
       {
@@ -70,7 +87,8 @@ const routes: Routes = [
         children: [ {
 
           path: '',
-          loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule)
+          loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule),
+          canActivate: [AuthGuardService]
 
 
         } ]
@@ -89,7 +107,8 @@ const routes: Routes = [
   },
   {
     path: 'maly',
-    loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule)
+    loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule),
+    canActivate: [AuthGuardService]
   },
 ];
 

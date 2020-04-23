@@ -85,7 +85,7 @@ charity;
   
         let mapOptions = { 
           center: latLng, 
-          zoom: 12,
+          zoom: 17,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         let marker = new google.maps.Marker({
@@ -111,7 +111,7 @@ charity;
         
             let mapOptions = { 
               center: latLng, 
-              zoom: 13,
+              zoom: 15,
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
           
@@ -128,7 +128,7 @@ charity;
                 position: new google.maps.LatLng(item['lan'], item.lng),
                 title: item.title
               });
-              infowindow.setContent(item.title);
+              //infowindow.setContent(item.title);
               infowindow.open(map, marker);
             }
         })

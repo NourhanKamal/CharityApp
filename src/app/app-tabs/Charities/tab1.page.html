@@ -7,9 +7,22 @@
       <h1>    قائمة الجمعيات
       </h1>
     </div>
+
+    <div *ngFor="let charity of charities"  style="text-align: center;">
+      <div *ngIf="this.router.url ==='/tabs/tab1'">
+
+        <ion-button  mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'info/'+charity.id">{{ charity.title }}</ion-button>
+
+      </div>
+
+    </div>
   
       <div *ngFor="let charity of charities" style="text-align: center;">
-        <ion-button mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'/info/'+charity.id">{{ charity.title }}</ion-button>
+        <div *ngFor="let item of charity.type">
+
+          <ion-button *ngIf="this.router.url.includes(item)" mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'info/'+charity.id">{{ charity.title }}</ion-button>
+
+        </div>
 
       </div>
   </div>

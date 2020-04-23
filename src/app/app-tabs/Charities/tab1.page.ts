@@ -11,7 +11,6 @@ import { Item }  from  '../../../services/Item';
 export class Tab1Page {
 
   parentPath: any;
-
   charities: Item[];
   constructor(private charityService: charityService,
     public router: Router
@@ -23,15 +22,13 @@ export class Tab1Page {
       
       console.log("charitis",charity);
       this.charities = charity;
+      this.parentPath= this.router.url.match('/tabs/tab1');
+      console.log("....Current route "+this.parentPath,charity[16]['type']);
+      
     
-    }
-    
+    });
 
     
-    );
-
-    this.parentPath= this.router.url;
-    console.log("....Current route path"+this.parentPath);
     
     }
   

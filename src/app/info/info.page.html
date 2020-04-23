@@ -1,21 +1,26 @@
 <ion-header >
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
+    <ion-title> 
+      الجمعيات
+    </ion-title>
   </ion-toolbar>
 </ion-header> 
 <ion-content >
-  <div id="main" style="text-align: right;" dir="rtl">
+  <div id="main" style="text-align: center;" dir="rtl">
   <div>
-    <h1 style="text-align: center;background-color: green;color: white; border-radius: 8px;">{{charity.title}}</h1>
+    <h1 style="background-color: #35C27D;color: white; border-radius: 8px;">{{charity.title}}</h1>
   </div>
-  <div style="background-color: green;color: white; border-radius: 8px;">
+  <div style="text-align: right;background-color: #35C27D;color: white; border-radius: 8px;">
     <p > {{charity.description}} </p>
     -------------------------------
     <p > العنوان: {{charity.address}} </p>
-    <p > الهاتف: {{charity.phone}} </p>     
+    <p > الهاتف: {{charity.phone}} </p>
+
   </div>
+  <ion-button mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'/tabs/tab3/'+charity.id">الموقع</ion-button>
 </div>
 </ion-content>
 
