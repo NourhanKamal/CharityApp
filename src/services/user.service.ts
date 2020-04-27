@@ -90,7 +90,7 @@ export class UserService {
     return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(()=> {
         
 
-        return this.fireAuth.auth.signInWithEmailAndPassword(newEmail,newPassword).then
+        return this.fireAuth.auth.signInWithEmailAndPassword(newEmail,newPassword)
       }
 
       ).catch(err => {
@@ -104,7 +104,9 @@ export class UserService {
   }
 
   signoutUser(): Promise<any> {
+    console.log('loged out')
     return this.fireAuth.auth.signOut();
+    
   }
 
   // register 

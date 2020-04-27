@@ -112,6 +112,7 @@ export class LoginPage implements OnInit {
         
       });
     }
+    
 
 
 
@@ -129,6 +130,10 @@ export class LoginPage implements OnInit {
     //   }).catch((error) => {
     //     window.alert(error.message)
     //   })} 
+  }
+
+  logOut() {
+    this.userService.signoutUser()
   }
 
   loginWithFacebook(){
