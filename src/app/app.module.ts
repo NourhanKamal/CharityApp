@@ -23,6 +23,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { charityService } from '../services/charity.service';
+import { environment } from 'src/environments/environment';
 
 const fireConfig = {
   apiKey: "AIzaSyCooEGHuvVmHCXUVyerZ1CqKxL61Ckj7vU",
@@ -41,7 +42,7 @@ const fireConfig = {
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
-    AngularFireModule.initializeApp(fireConfig, 'angularfs'), 
+    AngularFireModule.initializeApp(environment.firebase), 
     AngularFireAuthModule,
     HttpClientModule,
     IonicStorageModule.forRoot() , 

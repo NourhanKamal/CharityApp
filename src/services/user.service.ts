@@ -85,19 +85,17 @@ export class UserService {
   // }
  
   // login
-  signinUser(newEmail: string, newPassword: string): Promise<any> {
-     return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
-      
-      return this.fireAuth.auth.signInWithEmailAndPassword(newEmail,newPassword)
-    }).catch((err) => {    
-      
-      var errorCode = errorCode;
-      var errorMessage = errorMessage;
-     }
-    )
-    
-  }
+  signinUser(newEmail: string, newPassword: string) {
 
+      return this.fireAuth.auth.signInWithEmailAndPassword(newEmail,newPassword).then(()=> {
+        return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      }
+
+      ).catch(err => {
+        console.log(err)
+      })
+    }
+    
 
   resetPassword(email: string):Promise<any> {
     return this.fireAuth.auth.sendPasswordResetEmail(email);
