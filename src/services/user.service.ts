@@ -85,10 +85,12 @@ export class UserService {
   // }
  
   // login
-  signinUser(newEmail: string, newPassword: string) {
+  signinUser(newEmail: string, newPassword: string):Promise<any> {
 
-      return this.fireAuth.auth.signInWithEmailAndPassword(newEmail,newPassword).then(()=> {
-        return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(()=> {
+        
+
+        return this.fireAuth.auth.signInWithEmailAndPassword(newEmail,newPassword).then
       }
 
       ).catch(err => {
