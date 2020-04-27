@@ -67,6 +67,17 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tab3/id:',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../Location/tab3.module').then(m => m.Tab3PageModule),
+              canActivate: [AuthGuardService]
+          }
+        ]
+      },
+      {
         path: 'tab3',
         children: [
           {

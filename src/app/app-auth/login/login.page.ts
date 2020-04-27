@@ -13,7 +13,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Observable } from 'rxjs/Observable'
 import { AuthenticationService } from "../../../services/services";
 import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
-
+import { IonicComponentService } from '../../../services/ionic-component.service'
+import { UserService } from '../../../services/user.service'
 
 @Component({
   selector: 'app-login',
@@ -43,7 +44,9 @@ export class LoginPage implements OnInit {
      public loadingController: LoadingController,
      public authService: AuthenticationService,
      public  formBuilder: FormBuilder,
-     private activatedRoute: ActivatedRoute
+     private activatedRoute: ActivatedRoute,
+     private ionicComponentService: IonicComponentService,
+     private userService: UserService
      ) {
        this.user = this.afAuth.authState;
 
@@ -80,18 +83,53 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-  logIn(email, password) {
-    this.authService.SignIn(email.value, password.value)
-      .then((res) => {
-        if(this.authService.isEmailVerified) {
-          this.router.navigate(['tabs/tab2']);          
-        } else {
-          window.alert('Email is not verified')
-          return false;
+
+  logIn() {
+
+    if (!this.loginForm.valid){
+      console.log(this.loginForm.value);
+      //this.presentAlert("invalid form");
+      console.log("invalid form")
+    } else {
+      this.ionicComponentService.presentLoading()
+      console.log(this.loginForm.value);
+      console.log("yes, ")
+      this.userService.signinUser(this.loginForm.value.username, this.loginForm.value.password)
+      .then( authData => {
+        console.log("Auth pass");   
+        this.ionicComponentService.dismissLoading()
+        if(this.redirectUrl){
+          this.router.navigateByUrl('/'+this.redirectUrl);
+        }else{
+          this.router.navigateByUrl('/tabs');
         }
-      }).catch((error) => {
-        window.alert(error.message)
-      })}
+
+      }, error => {
+        //var errorMessage: string = error.message;
+        this.ionicComponentService.dismissLoading()
+        console.log("Error:"+error.message);
+        this.ionicComponentService.presentAlert(error.message)
+        
+      });
+    }
+
+
+
+
+
+
+    // this.authService.SignIn(email.value, password.value)
+    //   .then((res) => {
+    //     if(this.authService.isEmailVerified) {
+    //       this.router.navigate(['tabs/tab2']);          
+    //     } else {
+    //       window.alert('Email is not verified')
+    //       return false;
+    //     }
+    //   }).catch((error) => {
+    //     window.alert(error.message)
+    //   })} 
+  }
 
   loginWithFacebook(){
 
