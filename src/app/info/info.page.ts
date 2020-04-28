@@ -27,7 +27,9 @@ export class InfoPage implements OnInit {
   charity: Item = {
     id: '',
     title: '',
-   description:''
+    description:'',
+    phone: '',
+    address: ''
   };
 
   constructor( 

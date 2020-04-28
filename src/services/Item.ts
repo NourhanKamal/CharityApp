@@ -11,4 +11,6 @@ export interface Item {
     lat?: number;
     lng?: string;
     timestamp?: string;
+    phone?: string;
+    address?: string;
   }

@@ -33,6 +33,7 @@
     "angularfire2": "5.4.2",
     "cordova-android": "8.1.0",
     "cordova-browser": "6.0.0",
+    "cordova-ios": "5.1.1",
     "cordova-plugin-app-version": "0.1.9",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-geolocation": "4.0.2",
@@ -89,9 +90,13 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-facebook4": {
         "APP_ID": "1032124980494760",
-        "APP_NAME": "CharityApp"
+        "APP_NAME": "CharityApp",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
       },
-      "cordova-plugin-googleplus": {},
+      "cordova-plugin-googleplus": {
+        "PLAY_SERVICES_VERSION": "15.0.1"
+      },
       "cordova-sqlite-storage": {},
       "cordova-plugin-app-version": {},
       "cordova-plugin-geolocation": {},

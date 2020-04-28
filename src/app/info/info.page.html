@@ -14,10 +14,10 @@
     <h1 style="background-color: #35C27D;color: white; border-radius: 8px;">{{charity.title}}</h1>
   </div>
   <div style="text-align: right;background-color: #35C27D;color: white; border-radius: 8px;">
-    <p > {{charity.description}} </p>
+    <p > {{charity?.description}} </p>
     -------------------------------
-    <p > العنوان: {{charity.address}} </p>
-    <p > الهاتف: {{charity.phone}} </p>
+    <p > العنوان: {{charity?.address}} </p>
+    <p > الهاتف: {{charity?.phone}} </p>
 
   </div>
   <ion-button mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'/tabs/tab3/'+charity.id">الموقع</ion-button>
