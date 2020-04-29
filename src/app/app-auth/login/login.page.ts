@@ -29,6 +29,7 @@ export class LoginPage implements OnInit {
   public redirectPath: any;
 
   user: Observable<firebase.User>;
+  authToken: auth.UserCredential;
 
 	
 
@@ -134,14 +135,42 @@ export class LoginPage implements OnInit {
 
   logOut() {
     this.userService.signoutUser()
+    this.fb.logout()
   }
 
   loginWithFacebook(){
 
-    this.fb.login(['public_profile', 'user_friends', 'email'])
-    .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
-    .then(()=> this.router.navigate(['/tabs']))
-    .catch(e => console.log('Error logging into Facebook', e));
+
+    this.fb.getLoginStatus().then((res) => {
+      if (res.status === 'connected') {
+          // Already logged in to FB so pass credentials to provider (in my case firebase)
+          let provider = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          firebase.auth().signInWithCredential(provider).then((authToken) => {
+             this.authToken = authToken;
+          });
+      } else {
+          // Not already logged in to FB so sign in
+          this.fb.login(['public_profile', 'email']).then((userData) => {
+            console.log(userData)
+              // FB Log in success
+          }).then(()=> this.router.navigate(['/tabs']))
+          .catch((error) => {
+              // FB Log in error 
+              console.log(error)
+          });
+      }
+  });
+
+
+
+
+
+
+
+    // this.fb.login(['public_profile', 'email'])
+    // .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+    // .then(()=> this.router.navigate(['/tabs']))
+    // .catch(e => console.log('Error logging into Facebook', e));
   
 	}
   
