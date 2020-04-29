@@ -14,7 +14,7 @@ import {map, take} from 'rxjs/operators';
 import { Item }  from  '../../../services/Item';
 
 
-declare var google;
+declare var google: any;
 
 
 @Injectable()

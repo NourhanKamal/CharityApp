@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './auth.guard.service';
+import { Auth2Service } from './auth2.service';
 
 const routes: Routes = [
 
@@ -17,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./app-auth/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./app-auth/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [Auth2Service]
   },
   {
     path: 'maly',
