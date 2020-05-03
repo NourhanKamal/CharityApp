@@ -141,35 +141,41 @@ export class LoginPage implements OnInit {
   loginWithFacebook(){
 
 
-  //   this.fb.getLoginStatus().then((res) => {
-  //     if (res.status === 'connected') {
-  //         // Already logged in to FB so pass credentials to provider (in my case firebase)
-  //         let provider = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-  //         firebase.auth().signInWithCredential(provider).then((authToken) => {
-  //            this.authToken = authToken;
-  //         });
-  //     } else {
-  //         // Not already logged in to FB so sign in
-  //         this.fb.login(['public_profile', 'email']).then((userData) => {
-  //           console.log(userData)
-  //             // FB Log in success
-  //         }).then(()=> this.router.navigate(['/tabs']))
-  //         .catch((error) => {
-  //             // FB Log in error 
-  //             console.log(error)
-  //         });
-  //     }
-  // });
+    this.fb.getLoginStatus().then((res) => {
+      if (res.status === 'connected') {
+          // Already logged in to FB so pass credentials to provider (in my case firebase)
+          let provider = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          firebase.auth().signInWithCredential(provider).then((authToken) => {
+             this.authToken = authToken;
+          });
+      } else {
+          // Not already logged in to FB so sign in
+          this.fb.login(['public_profile', 'email']).then((userData) => {
+            console.log(userData)
+            
+              // FB Log in success
+          }).then(()=> {
+            let provider = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+            firebase.auth().signInWithCredential(provider).then((authToken) => {
+              this.authToken = authToken;
+            });
+            this.router.navigate(['/tabs'])})
+          .catch((error) => {
+              // FB Log in error 
+              console.log(error)
+          });
+      }
+  });
 
 
 
-  this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider).then(res => {
-    this.router.navigate(['/tabs'])
-    console.log('facebook login')
+  // this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider).then(res => {
+  //   this.router.navigate(['/tabs'])
+  //   console.log('facebook login',res)
    
-  }).catch(err => {
-    console.log(err)
-  })
+  // }).catch(err => {
+  //   console.log(err)
+  // })
 
 
     // this.fb.login(['public_profile', 'email'])
