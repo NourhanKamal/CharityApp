@@ -32,6 +32,7 @@ export class Tab2Page {
     logOut() {
        this.afAuth.auth.signOut()
       .then(()=> this.router.navigate(['/login']))
+      this.fb.logout()
   
       
 
