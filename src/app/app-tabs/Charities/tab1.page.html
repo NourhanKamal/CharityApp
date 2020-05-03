@@ -1,12 +1,17 @@
+<ion-header style="text-align: center;"> 
+  <ion-toolbar> 
+    <ion-buttons slot="end" style="padding-right: 20px;">
+      <ion-icon  name="log-out-outline" ></ion-icon>
+  </ion-buttons>
+    <ion-title> 
+      نوع التبرع
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content >
 
   <ion-content>
-    <div id="main">
-    <div class="title-block" style="text-align: center;">
-      <h1>    قائمة الجمعيات
-      </h1>
-    </div>
+   
 
     <div *ngFor="let charity of charities"  style="text-align: center;">
       <div *ngIf="this.router.url ==='/tabs/tab1'">
@@ -25,7 +30,6 @@
         </div>
 
       </div>
-  </div>
   </ion-content>
 
 

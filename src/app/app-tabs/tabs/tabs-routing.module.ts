@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 import { AuthGuardService } from 'src/app/auth.guard.service';
+import { AuthFBService } from 'src/app/auth-fb.service';
+
 
 const routes: Routes = [
   {
@@ -15,7 +17,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Charities/tab1.module').then(m => m.Tab1PageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -26,7 +28,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Charities/tab1.module').then(m => m.Tab1PageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -38,7 +40,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -50,7 +52,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../../donation-type/ayni/ayni.module').then( m => m.AyniPageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -62,7 +64,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Donation-type/tab2.module').then(m => m.Tab2PageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -73,7 +75,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Location/tab3.module').then(m => m.Tab3PageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -84,7 +86,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Location/tab3.module').then(m => m.Tab3PageModule),
-              canActivate: [AuthGuardService]
+              canActivate: [AuthGuardService] || [AuthFBService]
           }
         ]
       },
@@ -99,7 +101,7 @@ const routes: Routes = [
 
           path: '',
           loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule),
-          canActivate: [AuthGuardService]
+          canActivate: [AuthGuardService] || [AuthFBService]
 
 
         } ]
@@ -119,7 +121,7 @@ const routes: Routes = [
   {
     path: 'maly',
     loadChildren: () => import('../../donation-type/maly/maly.module').then( m => m.MalyPageModule),
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService] || [AuthFBService]
   },
 ];
 

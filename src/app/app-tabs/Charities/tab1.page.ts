@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { charityService } from '../../../services/charity.service';
 import { Item }  from  '../../../services/Item';
+import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -13,7 +14,8 @@ export class Tab1Page {
   parentPath: any;
   charities: Item[];
   constructor(private charityService: charityService,
-    public router: Router
+    public router: Router,
+    public afAuth: AngularFireAuth
 
     ) {}
     ngOnInit() {
@@ -37,4 +39,12 @@ export class Tab1Page {
     }
   
 
+
+    logOut() {
+      this.afAuth.auth.signOut()
+     .then(()=> this.router.navigate(['/login']))
+ 
+     
+
+   }
 }

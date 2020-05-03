@@ -93,12 +93,15 @@ export class RegisterPage implements OnInit {
 }
 
 
-    loginWithFacebook(){
+    async loginWithFacebook(){
 
-      this.fb.login(['public_profile', 'user_friends', 'email'])
+      try{
+        await  this.fb.login(['public_profile', 'user_friends', 'email'])
       .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
       .then(()=> this.router.navigate(['/tabs']))
-      .catch(e => console.log('Error logging into Facebook', e));
+       }catch (err) { console.log('Error logging into Facebook', err)} 
+     
+      
     
     }  
 
