@@ -152,13 +152,13 @@ export class LoginPage implements OnInit {
           // Not already logged in to FB so sign in
           this.fb.login(['public_profile', 'email']).then((userData) => {
             console.log(userData)
-            
-              // FB Log in success
-          }).then(()=> {
-            let provider = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+            let provider = firebase.auth.FacebookAuthProvider.credential(userData.authResponse.accessToken);
             firebase.auth().signInWithCredential(provider).then((authToken) => {
               this.authToken = authToken;
             });
+              // FB Log in success
+          }).then(()=> {
+            
             this.router.navigate(['/tabs'])})
           .catch((error) => {
               // FB Log in error 
