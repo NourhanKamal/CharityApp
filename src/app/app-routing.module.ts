@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { Auth2Service } from './auth2.service';
 
@@ -49,6 +49,9 @@ const routes: Routes = [
   {
     path: 'tabs/tab1/info/:id',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule),
+    /* children:[
+      {path: ':activity', component:}
+    ] */
     // canActivate: [AuthGuardService]
   },
  

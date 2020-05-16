@@ -29,8 +29,10 @@ export class InfoPage implements OnInit {
     title: '',
     description:'',
     phone: '',
-    address: ''
+    address: '',
+    type: []
   };
+  //type: any;
 
   constructor( 
     public travelService: TravelService,
@@ -52,20 +54,29 @@ export class InfoPage implements OnInit {
     this.parentPath= this.router.url;
     console.log("....Current route path"+this.parentPath);
     this.getItem();
+    this.getType();
   }
 
   getItem(){ 
      
     const id = this.activatedRoute.snapshot.paramMap.get('id'); 
+    //const id2 = this.activatedRoute.snapshot.paramMap.get('activity'); 
     this.charityService.getItem(id).subscribe(res => {
       console.log("Get charities=" + res) 
 
       this.charity = res;
+      //this.activities = res[`${id2}`];
+      
 
 
     });
   
-  }; 
+  };
+  getType() {
+    for(let type of this.charity['type']) {
+      //this.type = type
+    }
+  }
   getCategory(){
     this.travelService.getCategories().subscribe(res => {
       console.log("Get categories response="+res);

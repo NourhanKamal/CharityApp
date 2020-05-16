@@ -13,4 +13,5 @@ export interface Item {
     timestamp?: string;
     phone?: string;
     address?: string;
+    type:[];
   }
