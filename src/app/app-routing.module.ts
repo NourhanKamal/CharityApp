@@ -1,6 +1,7 @@
 import { NgModule, Component } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { Auth2Service } from './auth2.service';
+import { ActivityPageModule } from './activity/activity.module';
 
 const routes: Routes = [
 
@@ -49,9 +50,16 @@ const routes: Routes = [
   {
     path: 'tabs/tab1/info/:id',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule),
-    /* children:[
-      {path: ':activity', component:}
-    ] */
+    //  children:[
+    //   {path: 'activity/:activity', component:ActivityPageModule}
+    // ] 
+    // canActivate: [AuthGuardService]
+  },
+
+  {
+    path: 'tabs/tab1/info/:id/:activity',
+    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
+     
     // canActivate: [AuthGuardService]
   },
  
@@ -111,6 +119,11 @@ const routes: Routes = [
     // canActivate: [AuthGuardService]
 
   },
+  {
+    path: 'activity/:id',
+    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

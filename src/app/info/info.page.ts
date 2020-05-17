@@ -24,6 +24,7 @@ export class InfoPage implements OnInit {
   parentPath: any;
 
   public charities: any[];
+  
   charity: Item = {
     id: '',
     title: '',
