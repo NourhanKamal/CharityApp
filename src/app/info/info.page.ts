@@ -45,7 +45,7 @@ export class InfoPage implements OnInit {
     public charityService: charityService,) {
 
 
-      console.log(this.router.url,"Current URL");
+      //console.log(this.router.url,"Current URL");
 
 
      }
@@ -53,7 +53,7 @@ export class InfoPage implements OnInit {
   ngOnInit() {
 
     this.parentPath= this.router.url;
-    console.log("....Current route path"+this.parentPath);
+    //console.log("....Current route path"+this.parentPath);
     this.getItem();
     this.getType();
   }
@@ -63,7 +63,7 @@ export class InfoPage implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id'); 
     //const id2 = this.activatedRoute.snapshot.paramMap.get('activity'); 
     this.charityService.getItem(id).subscribe(res => {
-      console.log("Get charities=" + res) 
+      //console.log("Get charities=" + res) 
 
       this.charity = res;
       //this.activities = res[`${id2}`];
@@ -80,7 +80,7 @@ export class InfoPage implements OnInit {
   }
   getCategory(){
     this.travelService.getCategories().subscribe(res => {
-      console.log("Get categories response="+res);
+      //console.log("Get categories response="+res);
       this.charities = res
     });
   }

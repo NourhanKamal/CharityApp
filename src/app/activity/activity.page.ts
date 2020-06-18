@@ -16,14 +16,7 @@ export class ActivityPage implements OnInit {
 
   parentPath: any;
   
-   charity: Item = {
-    id: '',
-    title: '',
-    description:'',
-    phone: '',
-    address: '',
-    type: []
-  };
+   charity;
   
   activities: [];
 
@@ -46,12 +39,17 @@ export class ActivityPage implements OnInit {
   getItem(){ 
      
     const id = this.activatedRoute.snapshot.paramMap.get('id'); 
-    const id2 = this.activatedRoute.snapshot.paramMap.get('id2'); 
+<<<<<<< HEAD
+    const id2 = this.activatedRoute.snapshot.paramMap.get('activity'); 
+=======
+    const activity = this.activatedRoute.snapshot.paramMap.get('activity'); 
+>>>>>>> 6b8dd8a25ba209f681ceb2058d52716981762d34
     this.charityService.getItem(id).subscribe(res => {
       console.log("Get charities=" + res) 
 
       this.charity = res;
-      this.activities = res[`${id2}`];
+      this.activities = res[`${activity}`];
+      console.log("Get activity=" + res[`${activity}`])
       
 
 

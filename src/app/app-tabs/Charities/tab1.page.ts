@@ -12,14 +12,38 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class Tab1Page {
 
   parentPath: any;
-  charities: Item[];
+  charities;
   constructor(private charityService: charityService,
     public router: Router,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    public afs: AngularFirestore,
+    public activatedRoute:ActivatedRoute
 
     ) {}
     ngOnInit() {
-    this.charityService.getItems().subscribe(charity => {
+
+      
+     var idArr = this.router.url.split('/')
+      //console.log(this.router.url)
+
+      if (idArr[3]) {
+        
+        this.afs.collection('items', ref => ref.where('type.'+ idArr[3],'==',true)).valueChanges().subscribe(res =>{
+          //console.log(res)
+          this.charities = res;
+        })
+      } else {
+        this.charityService.getItems().subscribe(res => {
+          //console.log(res);
+          this.charities = res;
+        })
+        // this.afs.collection('items').valueChanges().subscribe(res =>{
+        //   console.log(res)
+        //   this.charities = res;
+        // })
+      }
+      
+    /* this.charityService.getItems().subscribe(charity => {
       
       
       console.log("charitis",charity);
@@ -28,7 +52,7 @@ export class Tab1Page {
       console.log("....Current route "+this.parentPath,charity[16]['type']);
       
     
-    });
+    }); */
 
     
     
