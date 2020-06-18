@@ -5,7 +5,7 @@ import { ActivityPageModule } from './activity/activity.module';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: 'tabs', pathMatch: 'full' },
 
   {
     path: '',
@@ -56,11 +56,6 @@ const routes: Routes = [
     // canActivate: [AuthGuardService]
   },
 
-  {
-    path: 'tabs/tab1/:id2/info/:id/:activity',
-    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
-    // canActivate: [AuthGuardService]
-  },
   {
     path: 'tabs/tab1/info/:id/:activity',
     loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
@@ -125,7 +120,7 @@ const routes: Routes = [
 
   },
   {
-    path: 'activity/:activity',
+    path: 'activity/:id',
     loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule)
   },
 

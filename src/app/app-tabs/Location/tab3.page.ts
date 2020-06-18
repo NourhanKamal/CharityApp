@@ -78,15 +78,15 @@ charity;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if(id) {
       this.charityService.getItem(id).subscribe(res => {
-        //console.log("Get charities=" + res) 
+        console.log("Get charities=" + res) 
   
         this.charity = res;
-        //console.log(this.charity)
+        console.log(this.charity)
         let latLng = new google.maps.LatLng(this.charity.lan, this.charity.lng);
   
         let mapOptions = { 
           center: latLng, 
-          zoom: 15,
+          zoom: 17,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         let marker = new google.maps.Marker({
@@ -106,23 +106,23 @@ charity;
         let mapElement = this.mapElement
         let map = this.map
         this.geolocation.getCurrentPosition().then(function (position) {
-          //console.log(position)
-
+          console.log(position)
           latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          
-          let mapOptions = { 
-            center: latLng, 
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-        
-          map = new google.maps.Map(mapElement.nativeElement, mapOptions);
-          var infowindow = new google.maps.InfoWindow();
-          var marker;
           charityService.getItems().subscribe(charitys => {
         
+            let mapOptions = { 
+              center: latLng, 
+              zoom: 15,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+          
+            console.log("charitis",charitys);
+            //this.charities = charitys;
+            map = new google.maps.Map(mapElement.nativeElement, mapOptions);
+            var infowindow = new google.maps.InfoWindow();
+            var marker;
             for (let item of charitys) {
-              //console.log(item)
+              console.log(item)
               marker = new google.maps.Marker({
                 map: map,
                 animation: google.maps.Animation.DROP,
@@ -130,20 +130,9 @@ charity;
                 title: item.title
               });
               //infowindow.setContent(item.title);
+              infowindow.open(map, marker);
             }
-            var img = 'https://firebasestorage.googleapis.com/v0/b/charity-app-306b7.appspot.com/o/icons%2Ficon-user-blue.png?alt=media&token=6d959f08-9f34-4e84-85f5-ae72b7723178'
-            marker = new google.maps.Marker({
-              map: map,
-              animation: google.maps.Animation.DROP,
-              icon: img,
-              position: latLng,
-              title: 'موقعك'
-            });
-            infowindow.setContent(marker.title);
-            infowindow.open(map, marker);
         })
-        
-        
         })
 
 
@@ -180,7 +169,7 @@ charity;
         zoom: 5,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-    //console.log("...call map");
+    console.log("...call map");
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
    // delay or await
     // this.addMarkersToMap()
