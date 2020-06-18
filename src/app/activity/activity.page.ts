@@ -39,11 +39,7 @@ export class ActivityPage implements OnInit {
   getItem(){ 
      
     const id = this.activatedRoute.snapshot.paramMap.get('id'); 
-<<<<<<< HEAD
-    const id2 = this.activatedRoute.snapshot.paramMap.get('activity'); 
-=======
     const activity = this.activatedRoute.snapshot.paramMap.get('activity'); 
->>>>>>> 6b8dd8a25ba209f681ceb2058d52716981762d34
     this.charityService.getItem(id).subscribe(res => {
       console.log("Get charities=" + res) 
 
