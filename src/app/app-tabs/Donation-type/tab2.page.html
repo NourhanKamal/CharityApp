@@ -3,7 +3,7 @@
     <ion-buttons slot="end" style="padding-right: 20px;" (click)=" logOut()">
       <ion-icon  name="log-out-outline" ></ion-icon>
   </ion-buttons>
-    <ion-title> 
+    <ion-title > 
       نوع التبرع
     </ion-title>
   </ion-toolbar>
@@ -14,22 +14,42 @@
   <div id="main">
 
 
-  <div class="login-form">
+  <div style="text-align: center;"  >
    
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top" (click)='malyWithTab()'>
+    <!-- <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top" (click)='malyWithTab()'>
       مالى
-    </ion-button>
+    </ion-button> -->
 
+   
+    <br>
+     <div>
+        <a (click)="malyWithTab()" > 
+          <img src="../assets/icon/jjj.png" style="width:  20%;"  alt=""  >
+          <br>
+          <span >مالى</span>
+        </a>
+      </div>
+     
+     
+      <br> <br>
+     
+      <div>
+        <a (click)="ayniWithTab()" > 
+          <img src="../assets/icon/1.png" style="width:  20%;"  alt=""  >
+          <br>
+          <span >عينى</span>
+        </a>
+      </div> 
+      
+      
 
+      <br>
+      <hr> 
+      <h2 style="color: red;"> حالات مستعجلة</h2>
 
-    <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top" (click)='ayniWithTab()'>
-      عينى
-  </ion-button> <br>
-
-
-
-
+      <a> حالة تبرع بالدم فى مستشفى 57375 </a>
     </div>
+    
 
 </div>
 </ion-content>
