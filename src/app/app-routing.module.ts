@@ -5,7 +5,7 @@ import { ActivityPageModule } from './activity/activity.module';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: 'tabs', pathMatch: 'full' },
 
   {
     path: '',

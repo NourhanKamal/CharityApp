@@ -1,35 +1,53 @@
 <ion-header style="text-align: center;"> 
+  
   <ion-toolbar> 
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/tab2"></ion-back-button>
     </ion-buttons>
+
     <ion-buttons slot="end" style="padding-right: 20px;" (click)="logOut()">
       <ion-icon  name="log-out-outline" ></ion-icon>
-  </ion-buttons>
-    <ion-title> 
-قائمة الجمعيات   
- </ion-title>
-  </ion-toolbar>
-</ion-header>
+    </ion-buttons>
 
+    <ion-title> قائمة الجمعيات </ion-title>
+  </ion-toolbar>
+
+  <!-- CODE NOUR -->
+  <!-- Searchbar -->
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <button ion-button icon-only (click)="toggle()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- CODE NOUR -->
+
+<ion-searchbar *ngIf="toggled" (ion-input)="myGetItems($event)" (ionCancel)="onCancel($event)" animated="true">
+
+</ion-searchbar>
+
+</ion-header>
 
   <ion-content >
 
+    <!-- CODE NOUR -->
+    <!-- Search List -->
     
-  
+    <ion-list>
+      <ion-item *ngFor="let myItem of myItems"></ion-item>
+      {{ myItem }}
+    </ion-list>
+    <!-- CODE NOUR -->
 
-          <!-- <ion-button *ngIf="this.router.url.includes(item)" mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'info/'+charity.id">{{ charity.title }}</ion-button> -->
-
-          <div>
-            
+      <!-- <ion-button *ngIf="this.router.url.includes(item)" mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'info/'+charity.id">{{ charity.title }}</ion-button> -->
+            <div style="margin-top: 3%; margin-bottom: 3%;">
                 <ion-row> 
-                <ion-col size='4' *ngFor="let charity of charities"  style="text-align: center;" > 
+                <ion-col size='6' *ngFor="let charity of charities"  style="text-align: center;" > 
 
                   <div >
-    
-                    
                   <a [routerLink]="'info/'+charity.id" style="text-decoration: none;" > 
-                    <img src="{{charity.image}}" style="width: 100%;"> 
+                    <img src="{{charity.image}}" style="width: 60%;"> 
                     <br>
                     <span >{{ charity.title }}</span>
                   </a>
@@ -51,10 +69,7 @@
             </div>
 
             </ion-col> -->
-          </div>
-
-
-     
+          </div>  
   </ion-content>
 
 
