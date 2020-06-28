@@ -20,7 +20,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./app-auth/login/login.module').then( m => m.LoginPageModule),
     canActivate: [Auth2Service]
-  },
+  }, 
   {
     path: 'maly',
     loadChildren: () => import('./donation-type/maly/maly.module').then( m => m.MalyPageModule),

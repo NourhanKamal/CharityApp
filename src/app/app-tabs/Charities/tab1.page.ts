@@ -71,4 +71,16 @@ export class Tab1Page {
      
 
    }
+<<<<<<< Updated upstream
+=======
+
+   onCancel(event) { }
+
+     public toggle(): void {
+       this.toggled = this.toggled ? false : true;
+     }
+//CODE NOUR
+
+
+>>>>>>> Stashed changes
 }

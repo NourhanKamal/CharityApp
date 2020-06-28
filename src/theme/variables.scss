@@ -159,7 +159,7 @@
     --ion-color-green-rgb: 245, 61, 61;
     --ion-color-green-contrast: #ffffff;
     --ion-color-green-contrast-rgb: 255, 255, 255;
-    --ion-color-green-shade: #258811;
+    --ion-color-green-shade: rgba(150,187,124,1);
     --ion-color-green-tint: #103f16;
 
 
@@ -411,7 +411,15 @@
 }
 
 .ion-color-realgreen {
+<<<<<<< Updated upstream
   --ion-color-base: #26B266;
+=======
+  //To Change Tab-bar Color
+   // --ion-color-base: -webkit-linear-gradient(90deg, rgba(150,187,124,1) 0%, rgba(207,209,134,1) 76%) !important;
+   --ion-color-base: -webkit-linear-gradient(90deg, rgba(51,92,100,1) 0%, rgba(207,209,134,1) 100%) !important;
+ // --ion-color-base: #335c64;
+
+>>>>>>> Stashed changes
   --ion-color-rgb: 38,178,102;
   --ion-color-contrast: #ffffff;
   --ion-color-contrast-rgb: 255,255,255;
@@ -419,11 +427,11 @@
   --ion-color-tint: #3cba75;
 }
 .ion-color-greengrab {
-  --ion-color-base: #009f34;
+  --ion-color-base: -webkit-radial-gradient(circle, rgba(207,209,134,1) 0%, rgba(150,187,124,1) 100%) !important;
   --ion-color-rgb: 0,159,52;
   --ion-color-contrast: #ffffff;
   --ion-color-contrast-rgb: 255,255,255;
-  --ion-color-shade: #008c2e;
+  --ion-color-shade: #96bb7c;
   --ion-color-tint: #1aa948;
 }
 .ion-color-greengrab-invert {
@@ -492,4 +500,24 @@
   // --ion-color-tertiary-contrast-rgb: 255, 255, 255;
   // --ion-color-tertiary-shade: #633ce0;
   // --ion-color-tertiary-tint: #7e57ff;
+
+
+  // To Change The Color Of Toolbar
+  ion-toolbar {
+  // helwa shwaia
+  // --background: -webkit-linear-gradient(90deg, rgba(207,209,134,1) 20%, rgba(150,187,124,1) 89%) !important;
+ 
+  // helwa (nafs l code elly fo2)
+  --background: -webkit-linear-gradient(90deg, rgba(150,187,124,1) 0%, rgba(207,209,134,1) 76%) !important;
+
+   // --background: rgba(150,187,124,1);
+   // --background: #96bb7c;
+  //--background: #335c64;
+   
+  }
+
+
+
+
+
 

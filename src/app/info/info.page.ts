@@ -1,4 +1,4 @@
-import { Component, AfterViewInit,OnInit } from '@angular/core';
+import { Component, AfterViewInit,OnInit} from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 import { NavController,ModalController} from '@ionic/angular';
 import { TravelService } from '../../services/travel.service';
@@ -6,7 +6,8 @@ import { IonicComponentService} from '../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
 import { charityService } from '../../services/charity.service';
 import {Item} from '../../services/Item';
-
+import {reviewService} from '../../services/review.service';
+import { AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-info',
@@ -14,6 +15,15 @@ import {Item} from '../../services/Item';
   styleUrls: ['./info.page.scss'],
 })
 export class InfoPage implements OnInit {
+
+  //First Rating Part
+  userDoc: AngularFirestoreDocument<any>
+  charityDoc: AngularFirestoreDocument<any>
+
+  user: Observable<any>;
+  nCharity: Observable<any>;
+  //End First Rating Part
+
 
   showLiner = false;
   showTitle = false;
@@ -35,6 +45,19 @@ export class InfoPage implements OnInit {
   };
   //type: any;
 
+//Review part declerations
+comment = [];
+reviewItems = [];
+
+sliderConfig = {
+  slidesPerView: 1.6,
+  spaceBetween: 10,
+  centeredSlides: true
+};
+
+
+
+
   constructor( 
     public travelService: TravelService,
     private modalController: ModalController,
@@ -42,13 +65,16 @@ export class InfoPage implements OnInit {
     private navController: NavController,
     public router: Router,
     private ionicComponentService: IonicComponentService, 
-    public charityService: charityService,) {
+    public charityService: charityService,
+    private reviewService: reviewService,
+    private afs: AngularFirestore) {
+
+    //console.log(this.router.url,"Current URL");
+
+    }
 
 
-      //console.log(this.router.url,"Current URL");
 
-
-     }
 
   ngOnInit() {
 
@@ -56,7 +82,30 @@ export class InfoPage implements OnInit {
     //console.log("....Current route path"+this.parentPath);
     this.getItem();
     this.getType();
+
+    //Review part declerations
+    this.reviewItems = this.reviewService.getReviews();
+    this.comment = this.reviewService.getComment();
+
+
+     //Start Second Rating Part 
+    this.userDoc = this.afs.doc('users/test-user-3')
+    this.charityDoc = this.afs.doc('charities/brooke-hospital')
+
+    this.nCharity = this.charityDoc.valueChanges()
+    this.user = this.userDoc.valueChanges()
+    //End Second Rating Part
   }
+
+   //Start Third Rating Part
+   get nCharityId() {
+    return this.charityDoc.ref.id
+   }
+
+   get userId() {
+     return this.userDoc.ref.id
+   }
+   //End Third Rating Part
 
   getItem(){ 
      
@@ -84,7 +133,25 @@ export class InfoPage implements OnInit {
       this.charities = res
     });
   }
+
+  // Review part functions
+  addToComment(review) {
+    this.reviewService.addReview(review);
+  }
+ 
+  openComments() {
+    this.router.navigate(['comment']);
+  }
+
+  //To read the rating value in the .ts file
+  /*  onRateChange(event) {
+    console.log('Your rate:', event);
+  } */
+  
+
   } ;
+
+
 
   // oggleSideMenu() {
   //   this.ionicComponentService.sideMenu(); //Add this method to your button click function

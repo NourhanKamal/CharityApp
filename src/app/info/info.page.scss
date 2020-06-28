@@ -91,3 +91,45 @@
     pointer-events: none;
     
 }
+
+ // style of review part
+ ion-badge {
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 100%;
+}
+ 
+.category-block {
+    margin-bottom: 4px;
+}
+ 
+.category-banner {
+    text-align: center;
+   // background: var(--ion-color-light);
+    height: 40px;
+    width: 95% ;
+    font-weight: 900;
+    font-size: 200%
+}
+
+ /* old style of review part
+ ion-slides{
+    height: 100%;
+}
+
+ion-slide{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+ion-slide p{
+    color: black;
+}
+
+ion-slide h3{
+    display: block;
+} */

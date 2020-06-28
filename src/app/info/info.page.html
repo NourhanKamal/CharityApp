@@ -3,35 +3,39 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
-    <ion-title> 
+    <ion-title style="text-align: center;"> 
       الجمعيات
     </ion-title>
   </ion-toolbar>
 </ion-header> 
+
 <ion-content >
   <div id="main" style="text-align: center;" dir="rtl">
 
   <div> 
-    <ion-card style="background-color: #35C27D; color: white">
+    <ion-card style="background-color: #f2f4d1 ; color: black">
+     
       <ion-card-header>
         <!-- <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> -->
-        <ion-card-title style= "color: white">{{charity.title}}</ion-card-title>
+        <ion-card-title style= "color: black">{{charity.title}}</ion-card-title>
       </ion-card-header>
     
       <ion-card-content>
         <p>{{charity?.description}} </p>
-        -------------------------------
-<p>العنوان: {{charity?.address}}</p>
-<p > الهاتف: {{charity?.phone}} </p>
-
+        ---------------------------------------------------------------------------
+        <p style="text-align: right;"> <ion-icon name="location-sharp"></ion-icon>  {{charity?.address}}</p>
+        <p style="text-align: right;"> <ion-icon name="call-sharp"></ion-icon> {{charity?.phone}} </p>
       </ion-card-content>
+
     </ion-card>
   </div>
 
-    <ion-card style="background-color: #35C27D; color: white" >
+    <ion-card style="background-color: #fcfafa; color: black" >
       <ion-card-header>
         <!-- <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> -->
-        <ion-card-title style= "color: white">التبرع المالى</ion-card-title>
+        <ion-card-title style= "color: black; ">
+          التبرع المالي 
+        </ion-card-title>
       </ion-card-header>
     
       <ion-card-content>
@@ -44,21 +48,18 @@
               <span>{{item.title}}</span>
             </a>
             
-          </ion-col>
-         
-          
+          </ion-col>  
         </ion-row>
-        
-
       </ion-card-content>
     </ion-card>
-  
 
   <div> 
-    <ion-card style="background-color: #35C27D; color: white">
+    <ion-card style="background-color: #ebefd0; color: black">
       <ion-card-header>
         <!-- <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> -->
-        <ion-card-title style= "color: white">التبرع العينى</ion-card-title>
+        <ion-card-title style= "color: black">
+           التبرع العيني 
+        </ion-card-title>
       </ion-card-header>
     
       <ion-card-content >
@@ -69,18 +70,183 @@
               <img src="{{item.img}}" style="width:  75%;" alt=""  >
               <br>
               <span>{{item.title}}</span>
-            </a>
-            
-          </ion-col>
-         
-          
+            </a>            
+          </ion-col>  
         </ion-row>
 
       </ion-card-content>
     </ion-card>
   </div>
 
-  <ion-button mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'/tabs/tab3/'+charity.id">الموقع</ion-button>
+  <ion-button mode="ios"  color="greengrab"  style="width: 60%;" class="btnMaly" [routerLink]="'/tabs/tab3/'+charity.id">الموقع</ion-button>
+
+  <br/>
+
+<!-- Review Part -->
+<div *ngFor="let cat of reviewItems" class="category-block">
+ 
+  <ion-row no-padding class="category-banner">
+    <ion-col text-center align-self-center>
+      تقييم الزائرين 
+    </ion-col>
+  </ion-row>
+
+  <ion-slides [options]="sliderConfig">
+    <ion-slide *ngFor="let review of cat.reviews">
+      <div *ngIf="cat.expanded">
+        <ion-card style="background-color: #ebefd0;">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="person"></ion-icon> {{ review.name }} 
+              <br/>
+               Rate: {{ review.rate }}
+            </ion-card-title>
+            <ion-card-content>
+           <p>
+             Lorem ipsum is placeholder text commonly used in the graphic,
+             print, and publishing industries for previewing layouts and visual mockups.
+           </p>
+           
+            </ion-card-content>
+          </ion-card-header>
+        </ion-card>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
 </div>
+<!-- End Of Review Part -->
+
+
+<!-- Start Rating Part -->
+<!-- <h4> Rate This Charity: </h4>
+<rating [(ngModel)]="rate"
+        readonly="false"
+        size="default"
+        (ngModelChange)="onRateChange($event)">
+</rating>
+ End Rating Part --> 
+
+
+ <!-- Start Rating Part -->
+<div *ngIf="nCharity | async as nCharityData">
+  <p> {{ nCharityData.title }} </p>
+  <p> {{ nCharityData.description }} </p>
+
+  <app-star-review [nCharityId]="nCharityId" [userId]="userId" ></app-star-review>
+ <!-- <star-review [nCharityId]="nCharityId" [userId]="userId" ></star-review> -->
+
+
+</div>
+ <!-- End Rating Part --> 
+
+
+
+
+
+<!-- Start Comment Part -->
+<ion-card style="background-color: #ebefd0;">
+  <ion-card-header>
+    <ion-card-title style="text-align: right; padding-right: 7%;">
+      التعليقات    
+    </ion-card-title>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label position="floating">أكتب تعليق</ion-label>
+        <ion-textarea></ion-textarea>
+      </ion-item>
+
+      <ion-button mode="ios"  color="greengrab"  style="width: 60%;" (click)="addToComment(review)">
+        إضافة التعليق
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card-header>
+</ion-card>
+
+<!-- End Comment Part -->
+
+                           
+</div>
+
+
 </ion-content>
+
+
+
+
+
+<!-- <div >
+  
+  <ion-card style="background-color: #ebefd0;">
+     <ion-card-header>
+ 
+       <ion-card-title>
+         تقييمات الزائرين 
+       </ion-card-title>
+     </ion-card-header>
+ 
+     <ion-card-content>
+       <ion-slides scrollbar ="true">
+ 
+         <ion-slide>
+           <h3>
+             Rania <ion-icon name="person"></ion-icon>
+           </h3>
+           <p>
+             Lorem ipsum is placeholder text commonly used in the graphic,
+             print, and publishing industries for previewing layouts and visual mockups.
+           </p>
+         </ion-slide>
+  
+         <ion-slide>
+           <h3>
+             Ahmed <ion-icon name="person" slot="start"></ion-icon>
+           </h3>
+           <p>
+             Lorem ipsum is placeholder text commonly used in the graphic,
+             print, and publishing industries for previewing layouts and visual mockups.
+           </p>          
+         </ion-slide>
+ 
+         <ion-slide>
+           <h3>
+             Nour <ion-icon name="person" slot="start"></ion-icon>
+           </h3>
+           <p>
+             Lorem ipsum is placeholder text commonly used in the graphic,
+             print, and publishing industries for previewing layouts and visual mockups.
+           </p>          
+         </ion-slide>
+ 
+       </ion-slides>
+ 
+       <br/>
+  
+       // Next and previous buttons
+       <ion-button (click)="slides.slidePrev()" mode="ios"  color="greengrab" > 
+         <ion-icon name="chevron-forward-outline"></ion-icon>
+ 
+       </ion-button>
+ 
+       <ion-button (click)="slides.slideNext()" mode="ios"  color="greengrab">
+       <ion-icon name="chevron-back-outline"></ion-icon>
+       </ion-button>
+ 
+       <br/>
+ 
+       // To Add Comment
+       <h5>أكتب تعليق</h5>
+       <ion-item>
+         <ion-label position="floating">Comment</ion-label>
+         <ion-textarea></ion-textarea>
+       </ion-item>
+ 
+    </ion-card-content>
+   </ion-card> 
+ 
+ 
+ </div> -->
+
 

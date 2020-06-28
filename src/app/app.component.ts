@@ -9,6 +9,7 @@ import { NavController, AlertController } from '@ionic/angular'
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent {
 
   @ViewChild(NavController , { static: true }) nav: NavController;
 
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -26,7 +28,7 @@ export class AppComponent {
     public router : Router ,
     public nativeStorage : NativeStorage,
     public alertCtrl: AlertController,
-    private fireAuth:AngularFireAuth
+    private fireAuth:AngularFireAuth,
 
   ) {
 
