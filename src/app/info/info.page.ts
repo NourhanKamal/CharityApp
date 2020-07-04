@@ -9,6 +9,7 @@ import {Item} from '../../services/Item';
 import {reviewService} from '../../services/review.service';
 import { AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 
+
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -45,7 +46,7 @@ export class InfoPage implements OnInit {
   };
   //type: any;
 
-//Review part declerations
+//Review first part declerations
 comment = [];
 reviewItems = [];
 
@@ -83,18 +84,24 @@ sliderConfig = {
     this.getItem();
     this.getType();
 
-    //Review part declerations
+    //Review second part declerations
     this.reviewItems = this.reviewService.getReviews();
     this.comment = this.reviewService.getComment();
 
 
-     //Start Second Rating Part 
+    
+    //Start Second Rating Part 
+
     this.userDoc = this.afs.doc('users/test-user-3')
-    this.charityDoc = this.afs.doc('charities/brooke-hospital')
+    this.charityDoc = this.afs.doc('items/Resala')
 
     this.nCharity = this.charityDoc.valueChanges()
+    /*console.log('this is charity', this.nCharity); */
     this.user = this.userDoc.valueChanges()
+    /*console.log('this is user-3', this.user);*/
+    
     //End Second Rating Part
+
   }
 
    //Start Third Rating Part
@@ -105,6 +112,14 @@ sliderConfig = {
    get userId() {
      return this.userDoc.ref.id
    }
+
+   /*TEST
+      get userId() {
+        const x = this.userDoc.ref.id
+     return console.log('this is user id:', x)
+   } */
+
+
    //End Third Rating Part
 
   getItem(){ 

@@ -13,6 +13,7 @@ export interface Star {
 
 @Injectable()
 export class StarService {
+   //TEST userId: any;
    
     constructor( private afs: AngularFirestore ) { }
     
@@ -22,6 +23,12 @@ export class StarService {
         return starsRef.valueChanges();
     }
 
+   
+  /*TEST
+  readUserId(){
+   return console.log('user id', this.userId)
+  } */
+       
     //Get all stars that belong to a charity
     getCharityStars( nCharityId ) {
         const starsRef = this.afs.collection('stars', ref => ref.where('nCharityId', '==', nCharityId) );

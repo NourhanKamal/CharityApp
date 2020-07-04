@@ -82,6 +82,7 @@
 
   <br/>
 
+
 <!-- Review Part -->
 <div *ngFor="let cat of reviewItems" class="category-block">
  
@@ -103,6 +104,7 @@
             </ion-card-title>
             <ion-card-content>
            <p>
+
              Lorem ipsum is placeholder text commonly used in the graphic,
              print, and publishing industries for previewing layouts and visual mockups.
            </p>
@@ -114,8 +116,9 @@
     </ion-slide>
   </ion-slides>
 
-</div>
+</div> 
 <!-- End Of Review Part -->
+
 
 
 <!-- Start Rating Part -->
@@ -130,14 +133,22 @@
 
  <!-- Start Rating Part -->
 <div *ngIf="nCharity | async as nCharityData">
+  
   <p> {{ nCharityData.title }} </p>
+  <!-- <p> Example </p> -->
   <p> {{ nCharityData.description }} </p>
 
   <app-star-review [nCharityId]="nCharityId" [userId]="userId" ></app-star-review>
  <!-- <star-review [nCharityId]="nCharityId" [userId]="userId" ></star-review> -->
-
-
+ 
 </div>
+
+<!-- TEST
+<div *ngIf="user | async as userData">
+ <p> Hello </p> 
+<p> {{ userData.displayName }} </p>
+</div> -->
+
  <!-- End Rating Part --> 
 
 

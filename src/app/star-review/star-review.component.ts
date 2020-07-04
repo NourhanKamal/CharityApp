@@ -33,7 +33,10 @@ export class StarReviewComponent implements OnInit {
     this.starService.setStar( this.userId, this.nCharityId, value )
   }
 
-
-
+ 
+  /*TEST
+  readUserId(){
+   return console.log('user id', this.userId)
+  } */
 
 }

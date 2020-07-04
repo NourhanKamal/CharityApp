@@ -13,6 +13,10 @@ export class Tab1Page {
 
   parentPath: any;
   charities;
+
+  myItems: string[];
+  toggled: boolean;
+
   constructor(private charityService: charityService,
     public router: Router,
     public afAuth: AngularFireAuth,
@@ -68,19 +72,57 @@ export class Tab1Page {
       this.afAuth.auth.signOut()
      .then(()=> this.router.navigate(['/login']))
  
-     
-
    }
-<<<<<<< Updated upstream
-=======
 
-   onCancel(event) { }
 
-     public toggle(): void {
-       this.toggled = this.toggled ? false : true;
-     }
+// CODE NOUR
+myInitializeItems() {
+  this.myItems = [
+
+   'جمعية تعزيز صحة المرأة',
+   'جمعية الشبان المسلمين',
+   'جمعية جيل المستقبل',
+   'جمعية رسالة للأعمال الخيريية',
+   'جمعية الأورمان الخيرية',
+   'بنك الطعام المصري',
+   'مؤسسة مصر الخير',
+   'مؤسسة مجدى يعقوب لأبحاث القلب',
+   'مستشفى 57357 لعلاج سرطان الأطفال',
+   'أنصار السنة المحمدية',
+   'الاتحاد النسائي المصري',
+   'الجمعية الشرعية',
+   'الجمعية الطبية الإسلامية',
+   'المؤسسة المصرية لحقوق الصم',
+   'رابطة الاصلاح الاجتماعى',
+   'مؤسسة ساويرس للتنمية الاجتماعية',
+   'مجمع الباقيات الصالحات',
+   'مستشفى بروك'
+  ]
+}
+
+myGetItems(ev) {
+  // Bt3red kol l items elly fe l array
+  this.myInitializeItems();
+
+  // Set val to the value of the ev target
+  var val = ev.target.value;
+
+  // If the value is an empty string don't filter the items
+  if( val && val.trim() != '' ){
+    this.myItems = this.myItems.filter((myItem) => {
+      return (myItem.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    })
+
+  }
+}
+
+onCancel(event) { }
+
+  public toggle(): void {
+    this.toggled = this.toggled ? false : true;
+  }
+
 //CODE NOUR
 
 
->>>>>>> Stashed changes
 }
