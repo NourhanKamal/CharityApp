@@ -128,7 +128,12 @@ const routes: Routes = [
     path: 'activity/:activity',
     loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule)
   },
+  {
+    path: 'star-review',
+    loadChildren: () => import('./star-review/star-review.module').then( m => m.StarReviewPageModule)
+  },
 
+  
 ];
 @NgModule({
   imports: [

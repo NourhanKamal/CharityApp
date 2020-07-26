@@ -9,6 +9,12 @@ import { NavController, AlertController } from '@ionic/angular'
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from 'rxjs/operators';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { title } from 'process';
+import { FcmService } from '../services/fcm.service';
+import { tap } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular'
+
 
 @Component({
   selector: 'app-root',
@@ -26,7 +32,10 @@ export class AppComponent {
     public router : Router ,
     public nativeStorage : NativeStorage,
     public alertCtrl: AlertController,
-    private fireAuth:AngularFireAuth
+    private fireAuth:AngularFireAuth,
+    private oneSignal: OneSignal,
+    private fcm: FcmService,
+    public toastCrtl: ToastController
 
   ) {
 
@@ -42,6 +51,27 @@ export class AppComponent {
         // Here you can do any higher level native things you might need.
         this.statusBar.styleDefault();
         this.splashScreen.hide();
+
+        //checking if platform is android
+
+        if (this.platform.is('cordova')){
+          this.setupPush();
+        }
+
+
+
+        // get a FCM token 
+        this.fcm.getToken() 
+  
+        this.fcm.listenToNotifications().pipe(
+          tap(async msg => { 
+            const toast =  await this.toastCrtl.create({ 
+              message: msg.body,
+              duration: 3000
+            })
+             toast.present();
+          })
+        ).subscribe()
         
       });
 
@@ -80,9 +110,56 @@ export class AppComponent {
 
      }
      
+  setupPush(){ 
+       this.oneSignal.startInit('0532e0a1-753d-452c-b1c5-6d71871f8853', '694372527034');
+
+       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None); 
+
+
+       this.oneSignal.handleNotificationReceived().subscribe(data => { 
+
+        let msg = data.payload.body;
+        let title = data.payload.title;
+        let additionalData = data.payload.additionalData;
+        this.showAlert(title, msg, additionalData.task);
+
+
+       });
+
+       this.oneSignal.handleNotificationOpened().subscribe(data => {
+
+        let additionalData = data.notification.payload.additionalData;
+
+        this.showAlert('Notification opened', 'You already read this before', additionalData.task)
+
+        
+
+      });
+
+       this.oneSignal.endInit();
+
+     }
   
    
-  
+     async showAlert(title, msg, task){ 
+       const alert = await this.alertCtrl.create( { 
+         header: title,
+         subHeader: msg,
+         buttons: [
+           {
+            text: `Action: ${task}`,
+            handler: ()=> {
+              // E.g Navigate to a specific screen
+
+
+            }
+
+
+           }
+         ]
+       })
+     }
+
   }
 //     // user is previously logged and we have his data
     //     // we will let him access the app

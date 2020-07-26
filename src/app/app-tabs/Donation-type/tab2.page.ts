@@ -10,6 +10,10 @@ import { Platform } from '@ionic/angular'
 import { templateJitUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { ToastController } from '@ionic/angular'
+import { FcmService } from '../../../services/fcm.service'
+import { tap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -24,11 +28,27 @@ export class Tab2Page {
     private google: GooglePlus , 
     private platform: Platform,
     private nativeStorage: NativeStorage,
-    public loadingController: LoadingController) {}
+    public loadingController: LoadingController,
+    public toastCrtl: ToastController,
+    public fcm: FcmService) {}
 
+    // ionViewDidLoad() {
+    //   // get a FCM token 
+      
+    //   this.fcm.getToken() 
+  
+    //   this.fcm.listenToNotifications().pipe(
+    //     tap(async msg => { 
+    //       const toast =  await this.toastCrtl.create({ 
+    //         message: msg.body,
+    //         duration: 3000
+    //       })
+    //        toast.present();
+    //     })
+    //   ).subscribe()
+  
+    // }
 
-
-    
     logOut() {
        this.afAuth.auth.signOut()
       .then(()=> this.router.navigate(['/login']))

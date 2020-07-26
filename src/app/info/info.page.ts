@@ -6,7 +6,9 @@ import { IonicComponentService} from '../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
 import { charityService } from '../../services/charity.service';
 import {Item} from '../../services/Item';
-
+import { StarService } from '../../services/star.service';
+import { UserService } from  '../../services/user.service';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
 @Component({
   selector: 'app-info',
@@ -14,6 +16,18 @@ import {Item} from '../../services/Item';
   styleUrls: ['./info.page.scss'],
 })
 export class InfoPage implements OnInit {
+
+        // 1st Rating Part
+
+
+  userDoc: AngularFirestoreDocument<any>;
+  charityDoc: AngularFirestoreDocument<any>;
+
+
+  //_________//
+
+  user: any;
+  char: any;
 
   showLiner = false;
   showTitle = false;
@@ -42,7 +56,10 @@ export class InfoPage implements OnInit {
     private navController: NavController,
     public router: Router,
     private ionicComponentService: IonicComponentService, 
-    public charityService: charityService,) {
+    public charityService: charityService,
+    private starService: StarService,
+    private userService: UserService,
+    private afs: AngularFirestore) {
 
 
       //console.log(this.router.url,"Current URL");
@@ -52,11 +69,38 @@ export class InfoPage implements OnInit {
 
   ngOnInit() {
 
+
+      // 2nd Rating Part
+    this.userDoc = this.afs.doc('users/test-user-3')
+    this.charityDoc = this.afs.doc('items/Resala')
+
+    this.char = this.charityDoc.valueChanges();
+    this.user = this.userDoc.valueChanges();
+   
+    ///____________________________\\\
+
     this.parentPath= this.router.url;
     //console.log("....Current route path"+this.parentPath);
     this.getItem();
     this.getType();
   }
+
+
+  // 3rd Rating Part 
+  starHandler(value) {
+
+    this.starService.setStar(this.user, this.char, value)
+ }
+
+  get charityID() { 
+
+    return this.charityDoc.ref.id
+  }
+
+  get userId(){
+    return this.userDoc.ref.id
+  }
+//__________________\\
 
   getItem(){ 
      

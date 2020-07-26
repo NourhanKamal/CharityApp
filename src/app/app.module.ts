@@ -18,12 +18,15 @@ import { IonicStorageModule } from '@ionic/storage'
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
 import {NativeStorage} from '@ionic-native/native-storage/ngx'
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Geolocation  } from '@ionic-native/geolocation/ngx';
+import { Geolocation} from '@ionic-native/geolocation/ngx';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { charityService } from '../services/charity.service';
 import { environment } from 'src/environments/environment';
+import { FcmService } from '../services/fcm.service'
+import { Firebase } from '@ionic-native/firebase/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx'
 
 // const fireConfig = {
 //   apiKey: "AIzaSyCooEGHuvVmHCXUVyerZ1CqKxL61Ckj7vU",
@@ -63,7 +66,10 @@ import { environment } from 'src/environments/environment';
       Injectable ,
       NativeStorage,
       AngularFirestore,
-      charityService
+      charityService,
+      FcmService,
+      Firebase,
+      OneSignal
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] 
