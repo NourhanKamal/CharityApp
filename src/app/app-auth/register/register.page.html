@@ -1,6 +1,6 @@
 <ion-header no-border>
-  <ion-toolbar color="">
-    <h1 class="main-header1" style="text-align: left; padding-left: 5%;">Sign up</h1>
+  <ion-toolbar color="" id="toolbar-shadow">
+    <h1 class="main-header1" style="text-align: right; padding-right: 5%; color: white;">إنشاء حساب</h1>
   </ion-toolbar>
 </ion-header>
 
@@ -17,57 +17,61 @@
 
 
 <div class="register-form ion-margin">
-          <ion-text color="dark">
-              <h2 text-center class="ion-margin-bottom main-header7">
-                  Create new account.
+          <ion-text color="dark" dir="rtl">
+              <h2 text-right class="ion-margin-bottom main-header7" style="color: white;">
+                <ion-icon name="person-add" slot="end"></ion-icon> تسجيل حساب جديد
               </h2>
           </ion-text>
 <form [formGroup]="registerForm" novalidate>
 
-  <ion-list lines="none">
+  <ion-list lines="none"  dir="rtl">
 
 
           <ion-item>
               <!-- <ion-icon slot="start" color="lightgrey" name="ios-mail-outline"> </ion-icon> -->
-              <ion-input type="email" #email required formControlName="username"  placeholder=" Email "></ion-input>
+              <ion-icon slot="start" color="lightgrey" name="mail-outline"></ion-icon>
+              <ion-input type="email" #email required formControlName="username"  placeholder=" البريد الإلكتروني "></ion-input>
               <!-- <ion-input type="email" #email required></ion-input> -->
-
           </ion-item>
+
+          <ion-text color="danger">
+            <p *ngIf="!registerForm.controls.username.valid && registerForm.controls.username.touched">
+                <ion-icon name="information-circle-outline"></ion-icon> يجب أن يكون إسم المستخدم هو بريدك الإلكتروني
+            </p>             
+          </ion-text>
 
           <ion-item>
               <!-- <ion-icon slot="start"  color="lightgrey" name="ios-key-outline"></ion-icon> -->
-              <ion-input type="password" #password required formControlName="password"  placeholder="Password" ></ion-input>
+              <ion-icon slot="start" color="lightgrey" name="lock-closed-outline"></ion-icon>
+              <ion-input type="password" #password required formControlName="password"  placeholder="كلمة السر" ></ion-input>
               <!-- <ion-input type="password" #password required></ion-input> -->
-
           </ion-item>
+
+          <ion-text color="danger">
+            <p *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.touched">
+                <ion-icon name="information-circle-outline"></ion-icon> كلمة المرور يجب أن لا تقل عن ٦ أحرف
+            </p>              
+          </ion-text>
 
       </ion-list>
 
 
-      <ion-text color="danger">
-          <p *ngIf="!registerForm.controls.username.valid && registerForm.controls.username.touched">
-              <ion-input name="information-circle-outline"></ion-input> Username must be e-mail!
-          </p>             
-      </ion-text>
-      <ion-text color="danger">
-          <p *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.touched">
-              <ion-input name="information-circle-outline"></ion-input> Password field must be at least 6 characters long!
-          </p>              
-      </ion-text>
+
+
 
      <!-- Submit button -->
-      <ion-button mode="ios" color="greengrab" expand="block" class="ion-margin-top"  (click)="signUp(email, password)">
-        Sign Up
+      <ion-button mode="ios" color="greengrab" style="width: 50%; text-align: center; margin-left: 25%;" expand="block" class="ion-margin-top"  (click)="signUp(email, password)">
+        تسجيل
       </ion-button>
 
       <br>  
       
-      <ion-button mode="ios" color="pink" expand="block" fill="outline" class="ion-margin-top" routerLink="/login">
-          Cancel
+      <ion-button mode="ios" color="pink" style="width: 50%; text-align: center; margin-left: 25%;" expand="block" fill="outline" class="ion-margin-top" routerLink="/login">
+          إلغاء
       </ion-button>
-      <ion-text color="dark">
-          <h2 text-center class="ion-margin-bottom main-header8">
-              By clicking Sign up you agree to the following Terms and Conditions without reservation
+      <ion-text color="dark" dir="rtl">
+          <h2 text-center class="ion-margin-bottom main-header8" style="color: white; text-align: right;">
+            <ion-icon name="create" slot="start"></ion-icon> بالنقر على تسجيل فأنت توافق على الشروط والأحكام
           </h2>
       </ion-text>
 </form>

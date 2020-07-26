@@ -6,14 +6,21 @@ import { IonicComponentService} from '../../services/ionic-component.service';
 import { Observable, Subscription } from 'rxjs';
 import { charityService } from '../../services/charity.service';
 import {Item} from '../../services/Item';
+//CHANGE
+import { StarService } from '../../services/star.service';
+import { UserService } from  '../../services/user.service';
+//CHANGE
 import {reviewService} from '../../services/review.service';
 import { AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+
 
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
   styleUrls: ['./info.page.scss'],
+  providers: [ StarService ]
+
 })
 export class InfoPage implements OnInit {
 
@@ -67,6 +74,10 @@ sliderConfig = {
     public router: Router,
     private ionicComponentService: IonicComponentService, 
     public charityService: charityService,
+    //CHANGE
+    private starService: StarService,
+    private userService: UserService,
+    //CHANGE
     private reviewService: reviewService,
     private afs: AngularFirestore) {
 
@@ -105,6 +116,13 @@ sliderConfig = {
   }
 
    //Start Third Rating Part
+
+   //CHANGE
+   starHandler(value) {
+
+    this.starService.setStar(this.user, this.nCharity, value)
+ } //CHANGE
+
    get nCharityId() {
     return this.charityDoc.ref.id
    }
@@ -158,11 +176,6 @@ sliderConfig = {
     this.router.navigate(['comment']);
   }
 
-  //To read the rating value in the .ts file
-  /*  onRateChange(event) {
-    console.log('Your rate:', event);
-  } */
-  
 
   } ;
 

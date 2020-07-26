@@ -1,9 +1,9 @@
 <ion-header no-border>
-  <ion-toolbar>
+  <ion-toolbar id="toolbar-shadow">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="tabs/tab2" text="رجوع" icon="chevron-back-outline" color="white"></ion-back-button>
     </ion-buttons>
-    <ion-title>Verify Email</ion-title>
+    <ion-title style="color: white; text-align: right; padding-right: 5%;">التحقق من البريد الإلكتروني  </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,19 +13,19 @@
   <ion-grid>
     <ion-row>
       
-      <p>
-        Please check your email and click on the link to verfiy your email address.
+      <p style="color: white;" dir="rtl">
+        يرجى التحقق من بريدك الإلكتروني والنقر على الرابط لتعريف بريدك الإلكتروني
       </p>
       <!-- <ion-button type="submit" (click)="authService.SendVerificationMail()" expand="block">
         Resend Verification Email
       </ion-button> -->
-      <ion-button style="width: 100%;" mode="ios" color="danger" expand="block"  class="ion-margin-top" (click)="authService.SendVerificationMail()" >Resend Verification Email </ion-button>
+      <ion-button style="width: 50%;  text-align: center; margin-left: 25%;" mode="ios" color="danger" expand="block"  class="ion-margin-top" (click)="authService.SendVerificationMail()"> إعادة إرسال رسالة التعريف </ion-button>
     </ion-row>
   </ion-grid>
   <ion-row>
     <ion-col>
       <!-- <ion-button type="submit" color="danger" expand="block" [routerLink]="['/login']">Login</ion-button> -->
-          <ion-button   mode="ios" color="realgreen" expand="block"  class="ion-margin-top"  routerLink="/login"> Login </ion-button>
+          <ion-button style="width: 50%;  text-align: center; margin-left: 25%;"  mode="ios" color="greengrab" expand="block"  class="ion-margin-top"  routerLink="/login"> تسجيل الدخول </ion-button>
     </ion-col>
     
   </ion-row>

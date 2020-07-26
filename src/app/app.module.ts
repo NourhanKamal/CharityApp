@@ -2,7 +2,7 @@ import { NgModule  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -25,8 +25,8 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { charityService } from '../services/charity.service';
 import { environment } from 'src/environments/environment';
-import { IonicRatingModule } from 'ionic4-rating';
-
+// import { IonicRatingModule } from 'ionic4-rating';
+// import { StarReviewPageModule } from './star-review/star-review.module';
 
 
 // const fireConfig = {
@@ -46,6 +46,7 @@ import { IonicRatingModule } from 'ionic4-rating';
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
+    Ng2SearchPipeModule,
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFireAuthModule,
     HttpClientModule,
@@ -54,7 +55,11 @@ import { IonicRatingModule } from 'ionic4-rating';
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicRatingModule
+   // IonicRatingModule,
+
+   // StarReviewPageModule,
+
+
     ],
   providers: [
     StatusBar,

@@ -1,47 +1,59 @@
 <ion-header style="text-align: center;"> 
   
-<ion-toolbar> 
+<ion-toolbar id="toolbar-shadow"> 
+  <!--Back Button-->
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/tab2"></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="end" style="padding-right: 20px;" (click)="logOut()">
-      <ion-icon  name="log-out-outline" ></ion-icon>
+      <ion-back-button defaultHref="tabs/tab2" text="الرجوع" icon="chevron-back-outline" color="white"></ion-back-button>
     </ion-buttons>
 
-    <ion-title> قائمة الجمعيات </ion-title>
+  <!--Search Button-->
+  <ion-buttons slot="end" style="padding-right: 50px;" ion-button icon-only (click)="toggle()">
+    <ion-icon name="search-outline" style="color: white;"></ion-icon>
+  </ion-buttons>
+
+ <ion-title style="color: white;"> قائمة الجمعيات </ion-title>
+    
+ 
+
+
+  <!--Logout Button-->
+      <ion-buttons slot="end" style="padding-right: 20px;" (click)="logOut()">
+        <ion-icon  name="log-out-outline" style="color: white;"></ion-icon>
+      </ion-buttons>
 </ion-toolbar>
 
- <!-- CODE NOUR -->
-  <!-- Searchbar -->
-  <ion-toolbar>
-   <ion-buttons slot="end" style="padding-right: 20px;" >
-      <button ion-button icon-only (click)="toggle()">
-        <ion-icon name="search-outline"></ion-icon>
-      </button>
-    </ion-buttons>
+<ion-searchbar dir="rtl" mode="ios" style="background-color: #80a16a; text-align: right;" placeholder="بحث" *ngIf="toggled" [(ngModel)]="searchText" autocomplete="off" animated="true">
+</ion-searchbar>
+
+<!-- Old Searchbar -->
+  <!--<ion-toolbar>
+    <ion-buttons slot="end" style="padding-right: 20px;" >
+        <button ion-button icon-only (click)="toggle()">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-toolbar>
 
-  <ion-searchbar *ngIf="toggled" (ion-input)="myGetItems($event)" (ionCancel)="onCancel($event)" animated="true">
-  </ion-searchbar>
-   <!-- CODE NOUR -->
+  <ion-searchbar *ngIf="toggled" [(ngModel)]="searchText" autocomplete="off" animated="true">
+  </ion-searchbar> -->
+<!-- CODE NOUR -->
 
 </ion-header>
 
 
-  <ion-content >
+  <ion-content>
     <!-- CODE NOUR -->
-    <!-- Search List -->
+    <!-- Search List 
    <ion-list>
       <ion-item *ngFor="let myItem of myItems"></ion-item>
       {{ myItem }}
-    </ion-list> 
+    </ion-list> -->
 
-    <!-- CODE NOUR -->
 
       <!-- <ion-button *ngIf="this.router.url.includes(item)" mode="ios" color="green"   style="width: 60%;" class="btnMaly" [routerLink]="'info/'+charity.id">{{ charity.title }}</ion-button> -->
-            <div style="margin-top: 3%; margin-bottom: 3%;">
-                <ion-row> 
-                <ion-col size='6' *ngFor="let charity of charities"  style="text-align: center;" > 
+      <div id="main" style="height: 400%;padding: 1px;">
+        <ion-row> 
+                  <ion-col size='6' *ngFor="let charity of charities | filter:searchText"  style="text-align: center;" > 
 
                   <div >
     
@@ -49,7 +61,7 @@
                   <a [routerLink]="'info/'+charity.id" style="text-decoration: none;" > 
                     <img src="{{charity.image}}" style="width: 100%;"> 
                     <br>
-                    <span >{{ charity.title }}</span>
+                    <span style="color: white;">{{ charity.title }}</span>
                   </a>
               </div>
     

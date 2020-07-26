@@ -410,11 +410,19 @@
   --ion-color-tint: #3cba75;
 }
 
+  //Tab-bar Color
 .ion-color-realgreen {
-  //To Change Tab-bar Color
    // --ion-color-base: -webkit-linear-gradient(90deg, rgba(150,187,124,1) 0%, rgba(207,209,134,1) 76%) !important;
-   --ion-color-base: -webkit-linear-gradient(90deg, rgba(51,92,100,1) 0%, rgba(207,209,134,1) 100%) !important;
- // --ion-color-base: #335c64;
+
+   //LON L BASHMOHNDSA 
+  // --ion-color-base: -webkit-linear-gradient(90deg, rgba(51,92,100,1) 0%, rgba(207,209,134,1) 100%) !important;
+ 
+  // --ion-color-base: #335c64;
+
+  //TODAY
+  //--ion-color-base: -webkit-linear-gradient(90deg, rgba(91,140,90,1) 0%, rgba(207,209,134,1) 100%) !important;
+  --ion-color-base: #80a16a;
+
 
   --ion-color-rgb: 38,178,102;
   --ion-color-contrast: #ffffff;
@@ -422,8 +430,10 @@
   --ion-color-shade: #219d5a;
   --ion-color-tint: #3cba75;
 }
+
+//Buttons Color
 .ion-color-greengrab {
-  --ion-color-base: -webkit-radial-gradient(circle, rgba(207,209,134,1) 0%, rgba(150,187,124,1) 100%) !important;
+  --ion-color-base: #80a16a !important;
   --ion-color-rgb: 0,159,52;
   --ion-color-contrast: #ffffff;
   --ion-color-contrast-rgb: 255,255,255;
@@ -498,13 +508,16 @@
   // --ion-color-tertiary-tint: #7e57ff;
 
 
-  // To Change The Color Of Toolbar
+  //Toolbar Color:
   ion-toolbar {
   // helwa shwaia
-  // --background: -webkit-linear-gradient(90deg, rgba(207,209,134,1) 20%, rgba(150,187,124,1) 89%) !important;
+   --background: -webkit-linear-gradient(90deg, rgba(207,209,134,1) 0%, rgba(128,161,106,1) 100%) !important;
  
   // helwa (nafs l code elly fo2)
-  --background: -webkit-linear-gradient(90deg, rgba(150,187,124,1) 0%, rgba(207,209,134,1) 76%) !important;
+ // --background: -webkit-linear-gradient(90deg, rgba(150,187,124,1) 0%, rgba(207,209,134,1) 76%) !important;
+
+ //finally
+ //--background: -webkit-linear-gradient(90deg, rgba(207,209,134,1) 0%, rgba(91,140,90,1) 100%) !important;
 
    // --background: rgba(150,187,124,1);
    // --background: #96bb7c;

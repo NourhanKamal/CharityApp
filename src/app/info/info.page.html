@@ -1,22 +1,25 @@
 <ion-header >
-  <ion-toolbar>
+  <ion-toolbar id="toolbar-shadow">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab2" text="الرجوع" icon="chevron-back-outline" color="white"></ion-back-button>
     </ion-buttons>
-    <ion-title style="text-align: center;"> 
+    <ion-title style="text-align: center; color: white;"> 
       الجمعيات
     </ion-title>
   </ion-toolbar>
 </ion-header> 
 
 <ion-content >
-  <div id="main" style="text-align: center;" dir="rtl">
+  <div id="main" style="text-align: center;height: 300%; padding: 1px;" dir="rtl">
 
-  <div> 
-    <ion-card style="background-color: #f2f4d1 ; color: black">
+
+  <!-- Description of charirities in a CARD -->
+  <!-- <div> 
+    <ion-card style="background-color: white ; color: black">
      
       <ion-card-header>
-        <!-- <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> -->
+         DON'T FORGET TO COMMENT <ion-card-subtitle> LINE
+         <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> 
         <ion-card-title style= "color: black">{{charity.title}}</ion-card-title>
       </ion-card-header>
     
@@ -28,12 +31,52 @@
       </ion-card-content>
 
     </ion-card>
+  </div> -->
+
+  <!-- Description of charirities without CARD -->
+  <div class="info-container">
+    <h3 id="info-subtitle"> {{charity.title}} </h3>
+
+    <p style="color: white; text-align: right;">{{charity?.description}} </p>
+
+    <h3 id="info-subtitle"> بيانات الجمعية </h3>
+
+    <p style="text-align: right; color: white;"> <ion-icon name="location-sharp" style="color: #80a16a;"></ion-icon>  {{charity?.address}}</p>
+    <p style="text-align: right; color: white;"> <ion-icon name="call-sharp" style="color: #80a16a;"></ion-icon> {{charity?.phone}} </p>
   </div>
 
-    <ion-card style="background-color: #fcfafa; color: black" >
+
+  <!-- Start Rating Part -->
+   <!-- <div *ngIf="nCharity | async as nCharityData">
+       DON'T FORGET TO COMMENT THE <P> PART 
+      <p> {{ nCharityData.title }} </p>
+      <p> {{ nCharityData.description }} </p>
+       
+      <app-star-review [nCharityId]="nCharityId" [userId]="userId" ></app-star-review> 
+    </div> -->
+ 
+    <!-- TEST
+    <div *ngIf="user | async as userData">
+      <p> Hello </p> 
+    <p> {{ userData.displayName }} </p>
+    </div> -->
+ 
+  <!-- End Rating Part --> 
+
+  <!-- Start old Rating Part -->
+    <!-- <h4> Rate This Charity: </h4>
+    <rating [(ngModel)]="rate"
+            readonly="false"
+            size="default"
+            (ngModelChange)="onRateChange($event)">
+    </rating>
+  End old Rating Part --> 
+ 
+ 
+    <ion-card>
       <ion-card-header>
         <!-- <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> -->
-        <ion-card-title style= "color: black; ">
+        <ion-card-title style= "color: white; font-size: medium;">
           التبرع المالي 
         </ion-card-title>
       </ion-card-header>
@@ -45,7 +88,7 @@
             <a routerLink="{{item.id}}" style="text-decoration: none;">
             <img src="{{item.img}}"  style="width: 75%;" alt="" >
               <br>
-              <span>{{item.title}}</span>
+              <span style="color: grey;" >{{item.title}}</span>
             </a>
             
           </ion-col>  
@@ -53,11 +96,13 @@
       </ion-card-content>
     </ion-card>
 
+<br/>
+
   <div> 
-    <ion-card style="background-color: #ebefd0; color: black">
-      <ion-card-header>
+    <ion-card>
+      <ion-card-header style="background-color: #80A16A;">
         <!-- <ion-card-subtitle style= "color: white" >{{charity.title}}</ion-card-subtitle> -->
-        <ion-card-title style= "color: black">
+        <ion-card-title style= "color: white; font-size: medium;">
            التبرع العيني 
         </ion-card-title>
       </ion-card-header>
@@ -69,7 +114,7 @@
             <a routerLink="{{item.id}}"> 
               <img src="{{item.img}}" style="width:  75%;" alt=""  >
               <br>
-              <span>{{item.title}}</span>
+              <span style="color: grey">{{item.title}}</span>
             </a>            
           </ion-col>  
         </ion-row>
@@ -84,6 +129,7 @@
 
 
 <!-- Review Part -->
+<!--
 <div *ngFor="let cat of reviewItems" class="category-block">
  
   <ion-row no-padding class="category-banner">
@@ -116,46 +162,16 @@
     </ion-slide>
   </ion-slides>
 
-</div> 
+</div> -->
 <!-- End Of Review Part -->
 
-
-
-<!-- Start Rating Part -->
-<!-- <h4> Rate This Charity: </h4>
-<rating [(ngModel)]="rate"
-        readonly="false"
-        size="default"
-        (ngModelChange)="onRateChange($event)">
-</rating>
- End Rating Part --> 
-
-
- <!-- Start Rating Part -->
-<div *ngIf="nCharity | async as nCharityData">
-  
-  <p> {{ nCharityData.title }} </p>
-  <!-- <p> Example </p> -->
-  <p> {{ nCharityData.description }} </p>
-
-  <app-star-review [nCharityId]="nCharityId" [userId]="userId" ></app-star-review>
- <!-- <star-review [nCharityId]="nCharityId" [userId]="userId" ></star-review> -->
- 
-</div>
-
-<!-- TEST
-<div *ngIf="user | async as userData">
- <p> Hello </p> 
-<p> {{ userData.displayName }} </p>
-</div> -->
-
- <!-- End Rating Part --> 
 
 
 
 
 
 <!-- Start Comment Part -->
+<!-- <div>
 <ion-card style="background-color: #ebefd0;">
   <ion-card-header>
     <ion-card-title style="text-align: right; padding-right: 7%;">
@@ -175,7 +191,7 @@
     </ion-card-content>
   </ion-card-header>
 </ion-card>
-
+</div> -->
 <!-- End Comment Part -->
 
                            

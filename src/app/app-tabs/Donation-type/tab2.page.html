@@ -1,10 +1,11 @@
-<ion-header style="text-align: center;"> 
-  <ion-toolbar> 
-    <ion-buttons slot="end" style="padding-right: 20px;" (click)=" logOut()">
+<ion-header style="text-align: center; box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);;
+"> 
+  <ion-toolbar id="toolbar-shadow"> 
+    <ion-buttons slot="end" style="padding-right: 20px; color: white;" (click)=" logOut()">
       <ion-icon  name="log-out-outline" ></ion-icon>
   </ion-buttons>
-    <ion-title > 
-      نوع التبرع
+    <ion-title style="color: white; text-align: center;"> 
+إختر نوع التبرع
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +15,7 @@
   <div id="main">
 
 
-  <div style="text-align: center; padding-top: 10%;"  >
+  <div style="text-align: center; padding-top: 20%;"  >
    
     <!-- <ion-button mode="ios" color="realgreen" expand="block"  class="ion-margin-top" (click)='malyWithTab()'>
       مالى
@@ -24,9 +25,13 @@
     <br>
      <div>
         <a (click)="malyWithTab()" > 
-          <img src="../assets/icon/jjj.png" style="width:  35%;"  alt=""  >
+          <img src="../assets/icon/jjj.png" 
+               style="width: 35%;"
+               alt="" 
+               id="img-shadow">
+               
           <br>
-          <span >تبرع مالي</span>
+          <span style="color: white; font-weight: bold;">تبرع مالي</span>
         </a>
       </div>
      
@@ -35,19 +40,20 @@
      
       <div>
         <a (click)="ayniWithTab()" > 
-          <img src="../assets/icon/1.png" style="width:  35%;"  alt=""  >
+          <img src="../assets/icon/1.png" style="width:  35%;"
+               alt=""
+               id="img-shadow">
           <br>
-          <span >تبرع عيني</span>
+          <span style="color: white; font-weight: bold;">تبرع عيني</span>
         </a>
       </div> 
-      
-      
 
       <br>
-      <hr> 
-      <h2 style="color: red;"> حالات مستعجلة</h2>
 
-      <a> حالة تبرع بالدم فى مستشفى 57375 </a>
+     <!-- <hr> 
+          <h2 style="color: red;"> حالات مستعجلة</h2>
+          <a> حالة تبرع بالدم فى مستشفى 57375 </a> -->
+
     </div>
     
 

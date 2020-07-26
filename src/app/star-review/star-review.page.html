@@ -1,11 +1,12 @@
-<h3> Average Rating </h3>
 
-{{ avgRating | async }}
+<h3> Average Rating: {{ avgRating | async }}
+</h3> 
+
 
 <h3> Reviews </h3>
 <div *ngFor="let star of stars | async">
 
-{{ star.userId }} gave {{ star.nCharityId }} {{ stars.value }} stars
+{{ star.userId }} gave {{ star.nCharityId }} {{ star.value }} stars
 </div>
 
 
@@ -13,7 +14,7 @@
 
 <fieldset class="rating">
   <ng-container *ngFor="let num of [5, 4, 3, 2, 1]">
-    <!-- Full Star -->
+   <!-- Full Star -->
     <input (click)="starHandler(num)"
             [id]="'star' + num"
             [value]="num"
@@ -22,7 +23,7 @@
 
     <label class="full" [for]="'star'+num"></label>
 
-    <!-- Half Star -->
+   <!-- Half Star -->
     <input (click)="starHandler(num-0.5)"
             [value]="num-0.5"
             [id]="'halfstar' +num"

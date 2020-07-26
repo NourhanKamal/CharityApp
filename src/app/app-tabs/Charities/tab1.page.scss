@@ -1,4 +1,6 @@
-.logo-box {
+
+
+/* .logo-box {
     width: 100%;
     height: 200px;
     position: relative;
@@ -80,7 +82,12 @@
             }
         }
     }
-  }
+  } */
   
-
+  .main {
+    background-image: url('../../../assets/icon/white-background.png') !important;
+    background-size: contain!important;
+    background-repeat: no-repeat!important;
+    height: 110%!important;
+}
   

@@ -1,4 +1,32 @@
-.container { 
+.inactive{ 
+    
+    opacity: 0.4;
+    
+    pointer-events: none;
+    
+}
+ // style of review part
+ ion-badge {
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 100%;
+}
+ 
+.category-block {
+    margin-bottom: 4px;
+}
+ 
+.category-banner {
+    text-align: center;
+   // background: var(--ion-color-light);
+    height: 40px;
+    width: 95% ;
+    font-weight: 900;
+    font-size: 200%
+}
+/* .container { 
     padding-top: 50px;
 }
 .logo-box {
@@ -84,35 +112,9 @@
     }
   }
 
-.inactive{ 
-    
-    opacity: 0.4;
-    
-    pointer-events: none;
-    
-}
 
- // style of review part
- ion-badge {
-    color: #fff;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    border-radius: 100%;
-}
- 
-.category-block {
-    margin-bottom: 4px;
-}
- 
-.category-banner {
-    text-align: center;
-   // background: var(--ion-color-light);
-    height: 40px;
-    width: 95% ;
-    font-weight: 900;
-    font-size: 200%
-}
+
+ */
 
  /* old style of review part
  ion-slides{

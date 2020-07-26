@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import { UserService } from './user.service'
 
 
 export interface Star {
@@ -11,11 +13,14 @@ export interface Star {
 }
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class StarService {
    //TEST userId: any;
    
-    constructor( private afs: AngularFirestore ) { }
+    constructor( private afs: AngularFirestore,
+                 public userService: UserService ) { }
     
     //Star reviews that belong to a user
     getUserStars( userId ) {
@@ -37,6 +42,7 @@ export class StarService {
 
     //Create or Update star
     setStar( userId, nCharityId, value) {
+
         // Star document data
         const star: Star = { userId, nCharityId, value };
 
@@ -46,9 +52,4 @@ export class StarService {
         //Set the data, return the promise
         return this.afs.doc(starPath).set(star)
     }
-
-
-
-
-
 }
